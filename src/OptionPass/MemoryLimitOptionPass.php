@@ -4,6 +4,7 @@ namespace Imagecraft\OptionPass;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class MemoryLimitOptionPass implements OptionPassInterface

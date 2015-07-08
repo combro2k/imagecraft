@@ -2,21 +2,23 @@
 
 namespace Imagecraft\Engine\PhpGd\Helper;
 
-use Imagecraft\Exception\InvalidImageException;
-use Imagecraft\Exception\InvalidFontException;
-use Imagecraft\Layer\ImageAwareLayerInterface;;
-use Imagecraft\Layer\RegularLayerInterface;
 use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Exception\InvalidFontException;
+use Imagecraft\Exception\InvalidImageException;
+use Imagecraft\Layer\ImageAwareLayerInterface;
+use Imagecraft\Layer\RegularLayerInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ResourceHelper
 {
     /**
-     * @param  int $width
-     * @param  int $height
+     * @param int $width
+     * @param int $height
+     *
      * @return resource
      */
     public function getEmptyGdResource($width, $height)
@@ -32,7 +34,8 @@ class ResourceHelper
     }
 
     /**
-     * @param  resource $resource
+     * @param resource $resource
+     *
      * @return resource
      */
     public function getPalettizedGdResource($resource)
@@ -47,10 +50,12 @@ class ResourceHelper
     }
 
     /**
-     * @param  string $format
-     * @param  string $uri
-     * @param  bool   $throw
+     * @param string $format
+     * @param string $uri
+     * @param bool   $throw
+     *
      * @return resource|false
+     *
      * @throws InvalidImageException
      */
     public function getGdResourceFromStream($format, $uri, $throw = false)
@@ -80,10 +85,12 @@ class ResourceHelper
     }
 
     /**
-     * @param  string $format
-     * @param  string $contents
-     * @param  bool   $throw
+     * @param string $format
+     * @param string $contents
+     * @param bool   $throw
+     *
      * @return resource
+     *
      * @throws InvalidImageException
      */
     public function getGdResourceFromContents($format, $contents, $throw = false)
@@ -102,14 +109,16 @@ class ResourceHelper
     }
 
     /**
-     * @param  string       $format
-     * @param  resource     $resource
-     * @param  mixed[]|null $options
-     * @param  bool         $throw
+     * @param string       $format
+     * @param resource     $resource
+     * @param mixed[]|null $options
+     * @param bool         $throw
+     *
      * @return string|false
+     *
      * @throws InvalidImageException
      */
-    public function getContentsFromGdResource($format, $resource, array $options = [], $throw = false)
+    public function getContentsFromGdResource($format, $resource, array $options = array(), $throw = false)
     {
         ob_start();
         switch ($format) {
@@ -147,11 +156,12 @@ class ResourceHelper
     }
 
     /**
-     * @param  int    $originalWidth
-     * @param  int    $originalHeight
-     * @param  int    $resizeWidth
-     * @param  int    $resizeHeight
-     * @param  string $resizeOption
+     * @param int    $originalWidth
+     * @param int    $originalHeight
+     * @param int    $resizeWidth
+     * @param int    $resizeHeight
+     * @param string $resizeOption
+     *
      * @return int[]|false
      */
     public function getResizeArguments(
@@ -201,18 +211,19 @@ class ResourceHelper
                 }
         }
 
-        return [
+        return array(
             'dst_x' => $dstX, 'dst_y' => $dstY, 'dst_w' => $dstW, 'dst_h' => $dstH,
             'src_x' => $srcX, 'src_y' => $srcY, 'src_w' => $srcW, 'src_h' => $srcH,
-        ];
+        );
     }
 
     /**
-     * @param  resource $srcResource
-     * @param  int      $resizeWidth
-     * @param  int      $resizeHeight
-     * @param  string   $resizeOption
-     * @param  bool     $resample
+     * @param resource $srcResource
+     * @param int      $resizeWidth
+     * @param int      $resizeHeight
+     * @param string   $resizeOption
+     * @param bool     $resample
+     *
      * @return resource
      */
     public function getResizedGdResource(
@@ -255,26 +266,33 @@ class ResourceHelper
 
         return $dstResource;
     }
-    
+
     /**
-     * Flip the image
-     * @param  resource $srcResource the image resource
-     * @param  int      $mode flip mode
+     * Flip the image.
+     *
+     * @param resource $srcResource the image resource
+     * @param int      $mode        flip mode
+     *
      * @return resource the flipped resource
      */
-    public function getFlippedGdResource($srcResource, $mode) {
+    public function getFlippedGdResource($srcResource, $mode)
+    {
         imageflip($srcResource, $mode);
+
         return $srcResource;
     }
-    
+
     /**
-     * Rotate the image with the given degress
-     * @param  resource $srcResource the image resource
-     * @param  float    $angle angle of rotation in degress, counter-clockwise
-     * @param  null,array $bgColor color of the uncovered area
+     * Rotate the image with the given degress.
+     *
+     * @param resource    $srcResource the image resource
+     * @param float       $angle       angle of rotation in degress, counter-clockwise
+     * @param null ,array $bgColor     color of the uncovered area
+     *
      * @return resource the rotated
      */
-    public function getRotatedGdResource($srcResource, $angle, $bgColor = null) {
+    public function getRotatedGdResource($srcResource, $angle, $bgColor = null)
+    {
         if ($bgColor) {
             $bgColor = imagecolorallocate($resource, $bgColor[0], $bgColor[1], $bgColor[2]);
         } else {
@@ -282,27 +300,33 @@ class ResourceHelper
         }
         $dstResource = imagerotate($srcResource, $angle, $bgColor);
         imagedestroy($srcResource);
+
         return $dstResource;
     }
-	
-	/**
-     * Set image opacity
-     * @param  resource $srcResource the image resource
-     * @param  int      $opacity opacity level
+
+    /**
+     * Set image opacity.
+     *
+     * @param resource $srcResource the image resource
+     * @param int      $opacity     opacity level
+     *
      * @return resource with alpha channel
      */
-    public function getOpacityGdResource($srcResource, $opacity) {
-        imagesavealpha( $srcResource, true );
-		imagefill( $srcResource, 0, 0, imagecolorallocatealpha( $srcResource, 0, 0, 0, 127 ) );
+    public function getOpacityGdResource($srcResource, $opacity)
+    {
+        imagesavealpha($srcResource, true);
+        imagefill($srcResource, 0, 0, imagecolorallocatealpha($srcResource, 0, 0, 0, 127));
+
         return $srcResource;
     }
-	
+
     /**
-     * @param  resource $dstResource
-     * @param  resource $srcResource
-     * @param  int      $x
-     * @param  int      $y
-     * @param  string   $gravity
+     * @param resource $dstResource
+     * @param resource $srcResource
+     * @param int      $x
+     * @param int      $y
+     * @param string   $gravity
+     *
      * @return resource
      */
     public function getMergedGdResource(
@@ -311,11 +335,11 @@ class ResourceHelper
         $x = 0,
         $y = 0,
         $gravity = RegularLayerInterface::MOVE_TOP_LEFT,
-		$opacity = 100
+        $opacity = 100
     ) {
-        $dstWidth  = imagesx($dstResource);
+        $dstWidth = imagesx($dstResource);
         $dstHeight = imagesy($dstResource);
-        $srcWidth  = imagesx($srcResource);
+        $srcWidth = imagesx($srcResource);
         $srcHeight = imagesY($srcResource);
 
         switch ($gravity) {
@@ -357,8 +381,8 @@ class ResourceHelper
         }
 
         if (
-           $x <= -$srcWidth  || $x >= $dstWidth  ||
-           $y <= -$srcHeight || $y >= $dstHeight
+            $x <= -$srcWidth || $x >= $dstWidth ||
+            $y <= -$srcHeight || $y >= $dstHeight
         ) {
             return $dstResource;
         }
@@ -388,15 +412,16 @@ class ResourceHelper
             imagedestroy($dstResource);
             $dstResource = $resource;
         }
-        $opacity = is_null( $opacity ) ? 100 : $opacity;
-		
-		imagecopymerge($dstResource, $srcResource, $dstX, $dstY, $srcX, $srcY, $srcW, $srcH, $opacity);
+        $opacity = is_null($opacity) ? 100 : $opacity;
+
+        imagecopymerge($dstResource, $srcResource, $dstX, $dstY, $srcX, $srcY, $srcW, $srcH, $opacity);
 
         return $dstResource;
     }
 
     /**
-     * @param  resource $srcResource
+     * @param resource $srcResource
+     *
      * @return resource
      */
     public function getClonedGdResource($srcResource)
@@ -413,14 +438,15 @@ class ResourceHelper
     }
 
     /**
-     * @param  string     $fontUri
-     * @param  int        $fontSize
-     * @param  int[]      $fontColor
-     * @param  string     $label
-     * @param  float|int  $lineSpacing
-     * @param  int        $angle
-     * @param  int[]      $blockPaddings
-     * @param  null|int[] $blockColor
+     * @param string     $fontUri
+     * @param int        $fontSize
+     * @param int[]      $fontColor
+     * @param string     $label
+     * @param float|int  $lineSpacing
+     * @param int        $angle
+     * @param int[]      $blockPaddings
+     * @param null|int[] $blockColor
+     *
      * @return resource
      */
     public function getTextGdResource(
@@ -430,7 +456,7 @@ class ResourceHelper
         $label,
         $lineSpacing,
         $angle,
-        array $blockPaddings = [0, 0, 0, 0],
+        array $blockPaddings = array(0, 0, 0, 0),
         array $blockColor = null
     ) {
         $points = $this->getTextPoints(
@@ -441,7 +467,7 @@ class ResourceHelper
             $angle,
             $blockPaddings
         );
-        $width  = max(
+        $width = max(
             abs($points['x'][0] - $points['x'][2]),
             abs($points['x'][1] - $points['x'][3])
         );
@@ -455,10 +481,10 @@ class ResourceHelper
             if (function_exists('imageantialias')) {
                 imageantialias($resource, true);
             }
-            $coordinates = [
+            $coordinates = array(
                 $points['x'][0], $points['y'][0], $points['x'][1], $points['y'][1],
                 $points['x'][2], $points['y'][2], $points['x'][3], $points['y'][3],
-            ];
+            );
             imagefilledpolygon($resource, $coordinates, 4, $blockColor);
         }
         $fontColor = imagecolorallocate($resource, $fontColor[0], $fontColor[1], $fontColor[2]);
@@ -471,20 +497,22 @@ class ResourceHelper
             $fontColor,
             $fontUri,
             $label,
-            ['linespacing' => $lineSpacing]
+            array('linespacing' => $lineSpacing)
         );
 
         return $resource;
     }
 
     /**
-     * @param  string    $fontUri
-     * @param  int       $fontSize
-     * @param  string    $label
-     * @param  float|int $lineSpacing
-     * @param  int       $angle
-     * @param  int[]     $blockPaddings
+     * @param string    $fontUri
+     * @param int       $fontSize
+     * @param string    $label
+     * @param float|int $lineSpacing
+     * @param int       $angle
+     * @param int[]     $blockPaddings
+     *
      * @return int[]
+     *
      * @throws InvalidFontException
      */
     protected function getTextPoints(
@@ -495,36 +523,36 @@ class ResourceHelper
         $angle,
         array $blockPaddings
     ) {
-        $ftbbox = @imageftbbox($fontSize, 0, $fontUri, $label, ['linespacing' => $lineSpacing]);
+        $ftbbox = @imageftbbox($fontSize, 0, $fontUri, $label, array('linespacing' => $lineSpacing));
         if (false === $ftbbox) {
             throw new InvalidFontException('text.adding.error');
         }
-        $radian  = deg2rad($angle);
-        $width   = abs($ftbbox[0] - $ftbbox[2]) + $blockPaddings[1] + $blockPaddings[3];
-        $width  += ceil($fontSize/5);
-        $height  = abs($ftbbox[1] - $ftbbox[7]) + $blockPaddings[0] + $blockPaddings[2];
-        $height += ceil($fontSize/5);
-        $w       = $width / 2;
-        $h       = $height / 2;
+        $radian = deg2rad($angle);
+        $width = abs($ftbbox[0] - $ftbbox[2]) + $blockPaddings[1] + $blockPaddings[3];
+        $width += ceil($fontSize / 5);
+        $height = abs($ftbbox[1] - $ftbbox[7]) + $blockPaddings[0] + $blockPaddings[2];
+        $height += ceil($fontSize / 5);
+        $w = $width / 2;
+        $h = $height / 2;
 
         $radius = sqrt(pow($width, 2) + pow($height, 2)) / 2;
-        $points = [];
-        for ($i = 0; $i < 4; $i++) {
+        $points = array();
+        for ($i = 0; $i < 4; ++$i) {
             $a = (0 === $i || 1 === $i) ? $h : -$h;
-            $b = (1 === $i || 2 === $i) ? $w  : -$w;
-            $points['x'][$i] = cos(atan2($a, $b) - $radian) * $radius + $w;
-            $points['y'][$i] = sin(atan2($a, $b) - $radian) * $radius + $h;
+            $b = (1 === $i || 2 === $i) ? $w : -$w;
+            $points['x'][ $i ] = cos(atan2($a, $b) - $radian) * $radius + $w;
+            $points['y'][ $i ] = sin(atan2($a, $b) - $radian) * $radius + $h;
         }
         $x = min($points['x']);
         $y = min($points['y']);
-        for ($i = 0; $i < 4; $i++) {
-            $points['x'][$i] = round($points['x'][$i] - $x);
-            $points['y'][$i] = round($points['y'][$i] - $y);
+        for ($i = 0; $i < 4; ++$i) {
+            $points['x'][ $i ] = round($points['x'][ $i ] - $x);
+            $points['y'][ $i ] = round($points['y'][ $i ] - $y);
         }
 
         $a = $blockPaddings[3];
         $b = $blockPaddings[0] - $ftbbox[7];
-        $radius  = sqrt(pow(abs($a - $w), 2) + pow(abs($b - $h), 2));
+        $radius = sqrt(pow(abs($a - $w), 2) + pow(abs($b - $h), 2));
         $points['x'][4] = round(cos(atan2($b - $h, $a - $w) - $radian) * $radius + $w - $x);
         $points['y'][4] = round(sin(atan2($b - $h, $a - $w) - $radian) * $radius + $h - $y);
 

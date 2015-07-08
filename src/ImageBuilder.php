@@ -2,16 +2,17 @@
 
 namespace Imagecraft;
 
-use TranslatedException\TranslatedException;
+use Imagecraft\Engine\DelegatingEngine;
 use Imagecraft\Layer\BackgroundLayer;
 use Imagecraft\Layer\ImageLayer;
 use Imagecraft\Layer\TextLayer;
 use Imagecraft\LayerPass\DelegatingLayerPass;
 use Imagecraft\OptionPass\DelegatingOptionPass;
-use Imagecraft\Engine\DelegatingEngine;
+use TranslatedException\TranslatedException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageBuilder
@@ -29,14 +30,15 @@ class ImageBuilder
     /**
      * @param mixed[] $options
      */
-    public function __construct(array $options = [])
+    public function __construct(array $options = array())
     {
         $this->options = $options;
-        $this->layers  = [0 => null];
+        $this->layers = array(0 => null);
     }
 
     /**
      * @return BackgroundLayer
+     *
      * @api
      */
     public function addBackgroundLayer()
@@ -46,6 +48,7 @@ class ImageBuilder
 
     /**
      * @return ImageLayer
+     *
      * @api
      */
     public function addImageLayer()
@@ -55,6 +58,7 @@ class ImageBuilder
 
     /**
      * @return TextLayer
+     *
      * @api
      */
     public function addTextLayer()
@@ -64,6 +68,7 @@ class ImageBuilder
 
     /**
      * @return Image
+     *
      * @api
      */
     public function save()
@@ -76,24 +81,25 @@ class ImageBuilder
             $pass = new DelegatingLayerPass();
             $this->layers = $pass->process($this->layers);
             $engine = new DelegatingEngine();
-            $image  = $engine->getImage($this->layers, $this->options);
+            $image = $engine->getImage($this->layers, $this->options);
         } catch (TranslatedException $e) {
             $image = new Image();
             $image->setMessage($e->getMessage());
             $image->setVerboseMessage($e->getVerboseMessage());
         }
-        $this->layers = [0 => null];
+        $this->layers = array(0 => null);
 
         return $image;
     }
 
     /**
      * @return AbstractContext
+     *
      * @api
      */
     public function about()
     {
-        $engine  = new DelegatingEngine($options['engine']);
+        $engine = new DelegatingEngine($options['engine']);
         $context = $engine->getContext($this->options);
 
         return $context;

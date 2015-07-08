@@ -2,13 +2,14 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
 use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageMetadataListener implements EventSubscriberInterface
@@ -19,7 +20,7 @@ class ImageMetadataListener implements EventSubscriberInterface
     protected $context;
 
     /**
-     * @var PhpGdContext $context
+     * @var PhpGdContext
      */
     public function __construct(PhpGdContext $context)
     {
@@ -31,9 +32,9 @@ class ImageMetadataListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::FINISH_IMAGE => ['addImageMetadatas', 899],
-        ];
+        return array(
+            PhpGdEvents::FINISH_IMAGE => array('addImageMetadatas', 899),
+        );
     }
 
     /**
@@ -41,7 +42,7 @@ class ImageMetadataListener implements EventSubscriberInterface
      */
     public function addImageMetadatas(PhpGdEvent $event)
     {
-        $image  = $event->getImage();
+        $image = $event->getImage();
         $layers = $event->getLayers();
         $format = $layers[0]->get('final.format');
 
@@ -49,9 +50,9 @@ class ImageMetadataListener implements EventSubscriberInterface
         $image->setExtension($this->context->getImageExtension($format));
         $image->setWidth($layers[0]->get('final.width'));
         $image->setHeight($layers[0]->get('final.height'));
-        $image->addExtras([
-            'original_width'  => $layers[0]->get('image.width'),
+        $image->addExtras(array(
+            'original_width' => $layers[0]->get('image.width'),
             'original_height' => $layers[0]->get('image.height'),
-        ]);
+        ));
     }
 }

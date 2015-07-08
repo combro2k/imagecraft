@@ -2,12 +2,13 @@
 
 namespace Imagecraft\Engine\PhpGd;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Imagecraft\Engine\EngineInterface;
 use Imagecraft\Engine\PhpGd\Extension\DelegatingExtension;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class PhpGdEngine implements EngineInterface
@@ -18,7 +19,7 @@ class PhpGdEngine implements EngineInterface
     public function getImage(array $layers, array $options)
     {
         $dispatcher = new EventDispatcher();
-        $extension  = new DelegatingExtension();
+        $extension = new DelegatingExtension();
         $extension->boot($dispatcher);
 
         $event = new PhpGdEvent($layers, $options);

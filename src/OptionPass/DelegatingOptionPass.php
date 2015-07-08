@@ -4,6 +4,7 @@ namespace Imagecraft\OptionPass;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class DelegatingOptionPass implements OptionPassInterface
@@ -26,7 +27,7 @@ class DelegatingOptionPass implements OptionPassInterface
      */
     protected function getRegisteredOptionPasses()
     {
-        return [
+        return array(
             new CacheDirOptionPass(),
             new DebugOptionPass(),
             new EngineOptionPass(),
@@ -36,6 +37,6 @@ class DelegatingOptionPass implements OptionPassInterface
             new MemoryLimitOptionPass(),
             new OutputFormatOptionPass(),
             new PngCompressionOptionPass(),
-        ];
+        );
     }
 }

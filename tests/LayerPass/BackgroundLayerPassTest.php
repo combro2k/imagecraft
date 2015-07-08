@@ -13,7 +13,7 @@ class BackgroundLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->pass  = $this->getMock('Imagecraft\\LayerPass\\BackgroundLayerPass', null);
+        $this->pass = $this->getMock('Imagecraft\\LayerPass\\BackgroundLayerPass', null);
         $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
     }
 
@@ -22,6 +22,6 @@ class BackgroundLayerPassTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessWhenNoBackgroundLayerIsFound()
     {
-        $this->pass->process([]);
+        $this->pass->process(array());
     }
 }

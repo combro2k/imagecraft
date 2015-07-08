@@ -16,11 +16,11 @@ class BackgroundLayerListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->listener = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\EventListener\\BackgroundLayerListener', null);
-        $this->layer    = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->event    = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
     }
 
@@ -28,9 +28,9 @@ class BackgroundLayerListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->event
             ->method('getOptions')
-            ->will($this->returnValue(['output_format' => 'default']))
+            ->will($this->returnValue(array('output_format' => 'default')))
         ;
-        $this->layer->add(['image.format' => 'png']);
+        $this->layer->add(array('image.format' => 'png'));
         $this->listener->initFinalFormat($this->event);
         $this->assertInternalType('string', $this->layer->get('final.format'));
     }

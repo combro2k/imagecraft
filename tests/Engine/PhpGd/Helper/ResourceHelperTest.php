@@ -90,7 +90,7 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
         $contents = $this->rh->getContentsFromGdResource(
             $format,
             $resource,
-            ['jpeg_quality' => 77, 'png_compression' => 46],
+            array('jpeg_quality' => 77, 'png_compression' => 46),
             true
         );
         $this->assertNotEmpty($contents);
@@ -102,7 +102,7 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetContentsFromGdResourceWhenResourceIsInvalid()
     {
-        $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_WEBP, 'foo', [], true);
+        $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_WEBP, 'foo', array(), true);
     }
 
     /**
@@ -190,7 +190,7 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClonedGdResource()
     {
-        $resource       = imagecreate(100, 100);
+        $resource = imagecreate(100, 100);
         $clonedResource = $this->rh->getClonedGdResource($resource);
         $this->assertInternalType('resource', $clonedResource);
         $this->assertFalse($resource === $clonedResource);
@@ -204,7 +204,7 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetTextGdResource($filename)
     {
         $resource = $this->rh->getTextGdResource(
-            $filename, 25, [0, 0, 0], 'Hello World', 1.5, 60, [0, 0, 0, 0], [133, 133, 133]
+            $filename, 25, array(0, 0, 0), 'Hello World', 1.5, 60, array(0, 0, 0, 0), array(133, 133, 133)
         );
         $this->assertInternalType('resource', $resource);
         imagepng($resource, __DIR__.'/TestOutput/resource_helper_text_should_be_valid.png');
@@ -217,51 +217,51 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetTextGdResourceWhenFontIsInvalid()
     {
         $this->rh->getTextGdResource(
-            __FILE__, 12, [0, 0, 0], 'Hello World', 1.5, 60, [0, 0, 0, 0], [133, 133, 111]
+            __FILE__, 12, array(0, 0, 0), 'Hello World', 1.5, 60, array(0, 0, 0, 0), array(133, 133, 111)
         );
     }
 
     public function imageDataProvider()
     {
-        return [
-            [PhpGdContext::FORMAT_PNG,  __DIR__.'/../../../Fixtures/png_palette_alpha_3000x1174.png'],
-            [PhpGdContext::FORMAT_WEBP, __DIR__.'/../../../Fixtures/webp_vp8_lossy_truecolor_550x368.webp'],
-            [PhpGdContext::FORMAT_JPEG, __DIR__.'/../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg'],
-            [PhpGdContext::FORMAT_GIF,  __DIR__.'/../../../Fixtures/gif_87a_palette_250x297.gif'],
-        ];
+        return array(
+            array(PhpGdContext::FORMAT_PNG,  __DIR__.'/../../../Fixtures/png_palette_alpha_3000x1174.png'),
+            array(PhpGdContext::FORMAT_WEBP, __DIR__.'/../../../Fixtures/webp_vp8_lossy_truecolor_550x368.webp'),
+            array(PhpGdContext::FORMAT_JPEG, __DIR__.'/../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg'),
+            array(PhpGdContext::FORMAT_GIF,  __DIR__.'/../../../Fixtures/gif_87a_palette_250x297.gif'),
+        );
     }
 
     public function resizeDataProvider()
     {
-        return [
-            [200, 100, 100, 100, ImageAwareLayerInterface::RESIZE_SHRINK, 100, 50],
-            [100, 200, 100, 100, ImageAwareLayerInterface::RESIZE_SHRINK, 50, 100],
-            [200, 100,  50,  50, ImageAwareLayerInterface::RESIZE_FILL_CROP, 50, 50],
-            [100, 200,  50,  50, ImageAwareLayerInterface::RESIZE_FILL_CROP, 50, 50],
-        ];
+        return array(
+            array(200, 100, 100, 100, ImageAwareLayerInterface::RESIZE_SHRINK, 100, 50),
+            array(100, 200, 100, 100, ImageAwareLayerInterface::RESIZE_SHRINK, 50, 100),
+            array(200, 100,  50,  50, ImageAwareLayerInterface::RESIZE_FILL_CROP, 50, 50),
+            array(100, 200,  50,  50, ImageAwareLayerInterface::RESIZE_FILL_CROP, 50, 50),
+        );
     }
 
     public function mergeDataProvider()
     {
-        return [
-            [50,    50, RegularLayerInterface::MOVE_TOP_LEFT],
-            [50,    50, RegularLayerInterface::MOVE_TOP_CENTER],
-            [50,    50, RegularLayerInterface::MOVE_TOP_RIGHT],
-            [50,    50, RegularLayerInterface::MOVE_CENTER_LEFT],
-            [50,    50, RegularLayerInterface::MOVE_CENTER],
-            [50,    50, RegularLayerInterface::MOVE_CENTER_RIGHT],
-            [50,    50, RegularLayerInterface::MOVE_BOTTOM_LEFT],
-            [50,    50, RegularLayerInterface::MOVE_BOTTOM_CENTER],
-            [50,    50, RegularLayerInterface::MOVE_BOTTOM_RIGHT],
-            [-50,  -50, RegularLayerInterface::MOVE_CENTER],
-            [-500, -500, RegularLayerInterface::MOVE_CENTER],
-        ];
+        return array(
+            array(50,    50, RegularLayerInterface::MOVE_TOP_LEFT),
+            array(50,    50, RegularLayerInterface::MOVE_TOP_CENTER),
+            array(50,    50, RegularLayerInterface::MOVE_TOP_RIGHT),
+            array(50,    50, RegularLayerInterface::MOVE_CENTER_LEFT),
+            array(50,    50, RegularLayerInterface::MOVE_CENTER),
+            array(50,    50, RegularLayerInterface::MOVE_CENTER_RIGHT),
+            array(50,    50, RegularLayerInterface::MOVE_BOTTOM_LEFT),
+            array(50,    50, RegularLayerInterface::MOVE_BOTTOM_CENTER),
+            array(50,    50, RegularLayerInterface::MOVE_BOTTOM_RIGHT),
+            array(-50,  -50, RegularLayerInterface::MOVE_CENTER),
+            array(-500, -500, RegularLayerInterface::MOVE_CENTER),
+        );
     }
 
     public function fontDataProvider()
     {
-        return [
-            [__DIR__.'/../../../Fixtures/pfa_truecolor_alpha.pfa'],
-        ];
+        return array(
+            array(__DIR__.'/../../../Fixtures/pfa_truecolor_alpha.pfa'),
+        );
     }
 }

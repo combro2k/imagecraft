@@ -6,20 +6,11 @@ use Imagecraft\Engine\PhpGd\PhpGdEngine;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class DelegatingEngine implements EngineInterface
 {
-    /**
-     * @return string[]
-     */
-    protected function getRegisteredEngines()
-    {
-        return [
-            'php_gd' => new PhpGdEngine(),
-        ];
-    }
-
     /**
      * @inheritDoc
      */
@@ -29,10 +20,20 @@ class DelegatingEngine implements EngineInterface
         if (!array_key_exists($options['engine'], $engines)) {
             $engine = $engines['php_gd'];
         } else {
-            $engine = $engines[$options['engine']];
+            $engine = $engines[ $options['engine'] ];
         }
 
         return $engine->getImage($layers, $options);
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getRegisteredEngines()
+    {
+        return array(
+            'php_gd' => new PhpGdEngine(),
+        );
     }
 
     /**
@@ -44,7 +45,7 @@ class DelegatingEngine implements EngineInterface
         if (!array_key_exists($options['engine'], $engines)) {
             $engine = $engines['php_gd'];
         } else {
-            $engine = $engines[$options['engine']];
+            $engine = $engines[ $options['engine'] ];
         }
 
         return $engine->getContext($options);

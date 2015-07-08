@@ -2,13 +2,14 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
 use Imagecraft\Engine\PhpGd\Extension\Core\ImageFactory;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageFactoryListener implements EventSubscriberInterface
@@ -31,9 +32,9 @@ class ImageFactoryListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::IMAGE => ['createImage', 99],
-        ];
+        return array(
+            PhpGdEvents::IMAGE => array('createImage', 99),
+        );
     }
 
     /**

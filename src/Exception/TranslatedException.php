@@ -6,6 +6,7 @@ use TranslatedException\TranslatedException as BaseTranslatedException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class TranslatedException extends BaseTranslatedException
@@ -19,7 +20,7 @@ class TranslatedException extends BaseTranslatedException
      */
     public function __construct(
         $id,
-        array $parameters = [],
+        array $parameters = array(),
         $number = null,
         $code = 0,
         \Exception $previous = null

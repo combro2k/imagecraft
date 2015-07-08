@@ -2,13 +2,14 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Imagecraft\Engine\PhpGd\Extension\Core\CoreExtension;
 use Imagecraft\Engine\PhpGd\Extension\Gif\GifExtension;
 use Imagecraft\Engine\PhpGd\Extension\Save\SaveExtension;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class DelegatingExtension implements ExtensionInterface
@@ -18,11 +19,11 @@ class DelegatingExtension implements ExtensionInterface
      */
     protected function getRegisteredExtensions()
     {
-        return [
+        return array(
             new CoreExtension(),
             new GifExtension(),
             new SaveExtension(),
-        ];
+        );
     }
 
     /**

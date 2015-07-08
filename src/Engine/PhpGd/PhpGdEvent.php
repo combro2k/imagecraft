@@ -2,11 +2,12 @@
 
 namespace Imagecraft\Engine\PhpGd;
 
-use Symfony\Component\EventDispatcher\Event;
 use Imagecraft\Image;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class PhpGdEvent extends Event
@@ -28,11 +29,11 @@ class PhpGdEvent extends Event
 
     /**
      * @param \Imagecraft\Layer\LayerInterface[] $layers
-     * @param mixed[]                              $options
+     * @param mixed[]                            $options
      */
     public function __construct(array $layers, array $options)
     {
-        $this->layers  = $layers;
+        $this->layers = $layers;
         $this->options = $options;
     }
 
@@ -53,18 +54,18 @@ class PhpGdEvent extends Event
     }
 
     /**
-     * @param Image $image
-     */
-    public function setImage(Image $image)
-    {
-        $this->image = $image;
-    }
-
-    /**
      * @return Image
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @param Image $image
+     */
+    public function setImage(Image $image)
+    {
+        $this->image = $image;
     }
 }

@@ -18,7 +18,7 @@ class ImageBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuilderImageWhenEngineIsPhpGd()
     {
-        $builder = $this->getMock('Imagecraft\\ImageBuilder', null, [['engine' => 'php_gd']]);
+        $builder = $this->getMock('Imagecraft\\ImageBuilder', null, array(array('engine' => 'php_gd')));
         $context = $builder->about();
         $this->assertInstanceOf('Imagecraft\\AbstractContext', $context);
         $image = $builder
@@ -34,7 +34,7 @@ class ImageBuilderTest extends \PHPUnit_Framework_TestCase
             ->addTextLayer()
                 ->font(__DIR__.'/Fixtures/pfa_truecolor_alpha.pfa', 12, '#FFF')
                 ->label('Hello World')
-                ->box([0, 0, 0, 0], '#000')
+                ->box(array(0, 0, 0, 0), '#000')
                 ->done()
             ->save()
         ;

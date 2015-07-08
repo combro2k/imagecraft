@@ -4,6 +4,7 @@ namespace Imagecraft;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class Image
@@ -46,15 +47,26 @@ class Image
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @return bool
+     *
      * @api
      */
     public function isValid()
     {
         return !isset($this->message);
+    }
+
+    /**
+     * @return string
+     *
+     * @api
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     /**
@@ -67,11 +79,12 @@ class Image
 
     /**
      * @return string
+     *
      * @api
      */
-    public function getMessage()
+    public function getVerboseMessage()
     {
-        return $this->message;
+        return $this->verboseMessage;
     }
 
     /**
@@ -84,11 +97,12 @@ class Image
 
     /**
      * @return string
+     *
      * @api
      */
-    public function getVerboseMessage()
+    public function getContents()
     {
-        return $this->verboseMessage;
+        return $this->contents;
     }
 
     /**
@@ -100,12 +114,13 @@ class Image
     }
 
     /**
-     * @return string
+     * @return int
+     *
      * @api
      */
-    public function getContents()
+    public function getWidth()
     {
-        return $this->contents;
+        return $this->width;
     }
 
     /**
@@ -118,11 +133,12 @@ class Image
 
     /**
      * @return int
+     *
      * @api
      */
-    public function getWidth()
+    public function getHeight()
     {
-        return $this->width;
+        return $this->height;
     }
 
     /**
@@ -134,12 +150,13 @@ class Image
     }
 
     /**
-     * @return int
+     * @return string
+     *
      * @api
      */
-    public function getHeight()
+    public function getMime()
     {
-        return $this->height;
+        return $this->mime;
     }
 
     /**
@@ -152,11 +169,12 @@ class Image
 
     /**
      * @return string
+     *
      * @api
      */
-    public function getMime()
+    public function getExtension()
     {
-        return $this->mime;
+        return $this->extension;
     }
 
     /**
@@ -165,15 +183,6 @@ class Image
     public function setExtension($extension)
     {
         $this->extension = $extension;
-    }
-
-    /**
-     * @return string
-     * @api
-     */
-    public function getExtension()
-    {
-        return $this->extension;
     }
 
     /**
@@ -186,6 +195,7 @@ class Image
 
     /**
      * @return string
+     *
      * @api
      */
     public function getExtras()

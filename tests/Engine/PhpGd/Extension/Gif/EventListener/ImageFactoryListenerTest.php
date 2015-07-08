@@ -19,17 +19,17 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory  = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\ImageFactory', [], [], '', false);
+        $this->factory = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\ImageFactory', array(), array(), '', false);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\ImageFactoryListener',
             null,
-            [$this->factory]
+            array($this->factory)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->image = $this->getMock('Imagecraft\\Image', null);
         $this->event
@@ -43,7 +43,7 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue([]))
+            ->will($this->returnValue(array()))
         ;
         $this->factory
             ->expects($this->once())
@@ -55,7 +55,7 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
             ->method('setImage')
             ->with($this->image)
         ;
-        $this->layer->add(['gif.extracted' => []]);
+        $this->layer->add(array('gif.extracted' => array()));
         $this->listener->createImage($this->event);
     }
 
@@ -64,14 +64,14 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue([]))
+            ->will($this->returnValue(array()))
         ;
         $this->factory
             ->expects($this->once())
             ->method('createImage')
             ->will($this->throwException(new \Exception()))
         ;
-        $this->layer->add(['gif.extracted' => []]);
+        $this->layer->add(array('gif.extracted' => array()));
         $this->listener->createImage($this->event);
         $this->listener->addImageExtras($this->event);
         $this->assertNotEmpty($this->image->getExtras()['gif_error']);

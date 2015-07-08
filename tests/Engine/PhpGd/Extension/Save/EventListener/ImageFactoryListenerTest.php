@@ -17,35 +17,35 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory  = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Save\\ImageFactory', [], [], '', false);
+        $this->factory = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Save\\ImageFactory', array(), array(), '', false);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Save\\EventListener\\ImageFactoryListener',
             null,
-            [$this->factory]
+            array($this->factory)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\ImageLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue([]))
+            ->will($this->returnValue(array()))
         ;
     }
 
     public function testCreateImage()
     {
-        $this->layer->add([
-            'image.width'  => 10,
+        $this->layer->add(array(
+            'image.width' => 10,
             'image.height' => 100,
-            'final.width'  => 10,
+            'final.width' => 10,
             'final.height' => 100,
             'image.format' => 'foo',
             'final.format' => 'foo',
-        ]);
+        ));
         $image = $this->getMock('Imagecraft\\Image', null);
         $this->factory
             ->expects($this->once())

@@ -4,6 +4,7 @@ namespace Imagecraft\LayerPass;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class DelegatingLayerPass implements LayerPassInterface
@@ -22,16 +23,15 @@ class DelegatingLayerPass implements LayerPassInterface
     }
 
     /**
-     * return LayerPassInterface[]
+     * return LayerPassInterface[].
      */
     protected function getRegisteredPasses()
     {
-        return [
+        return array(
             new BackgroundLayerPass(),
             new RegularLayerPass(),
             new ImageAwareLayerPass(),
             new TextLayerPass(),
-        ];
+        );
     }
 }
-

@@ -16,8 +16,8 @@ class AbstractLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function testSanitizeHexColor()
     {
-        $this->assertEquals(['hex' => '#000', 'rgb' => [0, 0, 0]], $this->pass->sanitizeHexColor('000'));
-        $this->assertEquals(['hex' => '#C0C0C0', 'rgb' => [192, 192, 192]], $this->pass->sanitizeHexColor('#c0c0c0'));
+        $this->assertEquals(array('hex' => '#000', 'rgb' => array(0, 0, 0)), $this->pass->sanitizeHexColor('000'));
+        $this->assertEquals(array('hex' => '#C0C0C0', 'rgb' => array(192, 192, 192)), $this->pass->sanitizeHexColor('#c0c0c0'));
     }
 
     /**
@@ -30,7 +30,7 @@ class AbstractLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function testSanitizeEnumeration()
     {
-        $this->assertEquals(1, $this->pass->sanitizeEnumeration(1, [1, 2, 3]));
+        $this->assertEquals(1, $this->pass->sanitizeEnumeration(1, array(1, 2, 3)));
     }
 
     /**
@@ -38,7 +38,7 @@ class AbstractLayerPassTest extends \PHPUnit_Framework_TestCase
      */
     public function testSanitizeEnumerationWhenEnumerationIsInvalid()
     {
-        $this->pass->sanitizeEnumeration(1, [2, 3, 4]);
+        $this->pass->sanitizeEnumeration(1, array(2, 3, 4));
     }
 
     public function testSanitizeUrl()

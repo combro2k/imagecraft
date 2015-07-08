@@ -2,15 +2,16 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Layer\ImageAwareLayerInterface;
-use Imagecraft\Exception\RuntimeException;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
 use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Imagecraft\Exception\RuntimeException;
+use Imagecraft\Layer\ImageAwareLayerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class MemoryRequirementListener implements EventSubscriberInterface
@@ -23,7 +24,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @param PhpGdContext $context
@@ -38,45 +39,46 @@ class MemoryRequirementListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE    => ['verifyMemoryLimit', 869],
-            PhpGdEvents::FINISH_IMAGE => ['addImageExtras', 889],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array('verifyMemoryLimit', 869),
+            PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 889),
+        );
     }
 
     /**
-     * @param  PhpGdEvent $event
+     * @param PhpGdEvent $event
+     *
      * @throws RuntimeException
      */
     public function verifyMemoryLimit(PhpGdEvent $event)
     {
         $options = $event->getOptions();
-        $layers  = $event->getLayers();
-        $limit   = $this->context->getMemoryLimit($options['memory_limit']);
-        $fixed   = memory_get_usage(true);
-        $peak    = 0;
+        $layers = $event->getLayers();
+        $limit = $this->context->getMemoryLimit($options['memory_limit']);
+        $fixed = memory_get_usage(true);
+        $peak = 0;
         foreach ($layers as $key => $layer) {
             if (!($layer instanceof ImageAwareLayerInterface)) {
                 continue;
             }
-            $width       = $layer->get('image.width');
-            $height      = $layer->get('image.height');
-            $finalWidth  = $layer->get('final.width');
+            $width = $layer->get('image.width');
+            $height = $layer->get('image.height');
+            $finalWidth = $layer->get('final.width');
             $finalHeight = $layer->get('final.height');
-            $constant    = $this->getMemoryConstant($layer->get('image.format'));
-            $dynamic     = $width * $height * $constant;
+            $constant = $this->getMemoryConstant($layer->get('image.format'));
+            $dynamic = $width * $height * $constant;
             if (0 === $key) {
                 $fixed += $finalWidth * $finalHeight * $constant;
                 if ($limit < $fixed + $dynamic) {
                     if ($finalWidth * $finalHeight > $width * $height) {
                         throw new RuntimeException(
                             'output.image.dimensions.exceed.limit.%cp_dimensions%',
-                            ['%cp_dimensions%' => $finalWidth.'x'.$finalHeight]
+                            array('%cp_dimensions%' => $finalWidth.'x'.$finalHeight)
                         );
                     } else {
                         throw new RuntimeException(
                             'image.dimensions.exceed.limit.%cp_dimensions%',
-                            ['%cp_dimensions%' => $width.'x'.$height]
+                            array('%cp_dimensions%' => $width.'x'.$height)
                         );
                     }
                 }
@@ -100,12 +102,13 @@ class MemoryRequirementListener implements EventSubscriberInterface
     }
 
     /**
-     * @param  string $format
+     * @param string $format
+     *
      * @return int|float
      */
     protected function getMemoryConstant($format)
     {
-        switch($format) {
+        switch ($format) {
             case PhpGdContext::FORMAT_JPEG:
                 $constant = 6.2;
                 break;

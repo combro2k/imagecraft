@@ -16,13 +16,13 @@ class PngCompressionOptionPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        $option = $this->pass->process([]);
+        $option = $this->pass->process(array());
         $this->assertEquals(100, $option['png_compression']);
 
-        $option = $this->pass->process(['png_compression' => 200]);
+        $option = $this->pass->process(array('png_compression' => 200));
         $this->assertEquals(100, $option['png_compression']);
 
-        $option = $this->pass->process(['png_compression' => -100]);
+        $option = $this->pass->process(array('png_compression' => -100));
         $this->assertEquals(100, $option['png_compression']);
     }
 }

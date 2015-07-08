@@ -4,41 +4,46 @@ namespace Imagecraft;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 abstract class AbstractContext
 {
     /**
      * @return bool
+     *
      * @api
      */
     abstract public function isEngineSupported();
 
     /**
      * @return string
+     *
      * @api
      */
     abstract public function getSupportedImageFormatsToString();
 
     /**
      * @return string
+     *
      * @api
      */
     abstract public function getSupportedFontFormatsToString();
 
     /**
-     * @param  int $modifier
+     * @param int $modifier
+     *
      * @return int
      */
     public function getMemoryLimit($modifier = 0)
     {
         $str = trim(ini_get('memory_limit'));
-        if(!preg_match('/(?i)\\A(?<limit>\d+).*(?<unit>g|m|k).*\\Z/', $str, $matches)) {
+        if (!preg_match('/(?i)\\A(?<limit>\d+).*(?<unit>g|m|k).*\\Z/', $str, $matches)) {
             return 1024 * 1024 * 1024;
         };
         $limit = $matches['limit'];
-        $unit  = strtolower($matches['unit']);
-        switch($unit) {
+        $unit = strtolower($matches['unit']);
+        switch ($unit) {
             case 'g':
                 $limit *= 1024;
             case 'm':

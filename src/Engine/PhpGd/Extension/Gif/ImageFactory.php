@@ -2,17 +2,17 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Gif;
 
-use Imagecraft\Image;
-use Imagecraft\Layer\LayerInterface;
-use Imagecraft\Layer\BackgroundLayerInterface;
-use Imagecraft\Layer\RegularLayerInterface;
-use Imagecraft\Layer\ImageAwareLayerInterface;
-use Imagecraft\Layer\TextLayerInterface;
-use Imagecraft\Engine\PhpGd\PhpGdContext;
 use Imagecraft\Engine\PhpGd\Helper\ResourceHelper;
+use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Image;
+use Imagecraft\Layer\BackgroundLayerInterface;
+use Imagecraft\Layer\ImageAwareLayerInterface;
+use Imagecraft\Layer\LayerInterface;
+use Imagecraft\Layer\TextLayerInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageFactory
@@ -66,29 +66,30 @@ class ImageFactory
         GifBuilderPlus $builderPlus,
         GifOptimizer $optimizer
     ) {
-        $this->rh          = $rh;
-        $this->extractor   = $extractor;
-        $this->builder     = $builder;
+        $this->rh = $rh;
+        $this->extractor = $extractor;
+        $this->builder = $builder;
         $this->builderPlus = $builderPlus;
-        $this->optimizer   = $optimizer;
+        $this->optimizer = $optimizer;
     }
 
     /**
-     * @param  LayerInterface[] $layers
-     * @param  mixed[]          $options
+     * @param LayerInterface[] $layers
+     * @param mixed[]          $options
+     *
      * @return Image
      */
     public function createImage(array $layers, array $options)
     {
         $this->initContents($layers);
-        $contents  = $layers[0]->get('gif.contents');
+        $contents = $layers[0]->get('gif.contents');
 
         $extracted = $layers[0]->get('gif.extracted');
-        $frames    = count($extracted);
+        $frames = count($extracted);
 
         $image = new Image();
         $image->setContents($contents);
-        $image->addExtras(['total_frames' => $frames]);
+        $image->addExtras(array('total_frames' => $frames));
 
         return $image;
     }
@@ -105,8 +106,7 @@ class ImageFactory
         $this->builderPlus
             ->canvasWidth($layers[0]->get('final.width'))
             ->canvasHeight($layers[0]->get('final.height'))
-            ->loop($extracted->getTotalLoops())
-        ;
+            ->loop($extracted->getTotalLoops());
         for ($i = 0, $extracted->seek(0); $extracted->valid(); $extracted->seek(++$i)) {
             $this->initFrameResource($layers[0]);
             $this->coalesceFrameResource($layers[0]);
@@ -125,8 +125,7 @@ class ImageFactory
                 ->delayTime($extracted->getDelayTime())
                 ->interlaceFlag($tmpExtracted->getInterlaceFlag())
                 ->colorTable($tmpExtracted->getColorTable())
-                ->imageData($tmpExtracted->getImageData())
-            ;
+                ->imageData($tmpExtracted->getImageData());
             if ($tmpExtracted->getTransparentColorFlag()) {
                 $index = $tmpExtracted->getTransparentColorIndex();
                 $this->builderPlus->transparentColorIndex($index);
@@ -142,17 +141,7 @@ class ImageFactory
      */
     protected function initQuality(BackgroundLayerInterface $layer)
     {
-        $extracted = $layer->get('gif.extracted');
-        $width     = $layer->get('final.width');
-        $height    = $layer->get('final.height');
-
-        $frames = count($extracted);
-        $pixels = $frames * $width * $height;
-        if ((250000 > $width * $height) && 2400000 > $pixels) {
-            $quality = true;
-        } else {
-            $quality = false;
-        }
+        $quality = true;
 
         $layer->set('gif.quality', $quality);
     }
@@ -167,7 +156,7 @@ class ImageFactory
         }
         foreach ($layers as $layer) {
             if ($layer instanceof BackgroundLayerInterface) {
-                $width  = $layer->get('final.width');
+                $width = $layer->get('final.width');
                 $height = $layer->get('final.height');
                 $resource = $this->rh->getEmptyGdResource($width, $height);
                 $layer->set('gif.cache_resource', $resource);
@@ -207,9 +196,9 @@ class ImageFactory
         } else {
             $contents = $layer->get('image.contents');
             $resource = $this->rh->getGdResourceFromContents($format, $contents, true);
-        }        
-		
-		if ($layer->has('image.rotate.angle')) {
+        }
+
+        if ($layer->has('image.rotate.angle')) {
             $resource = $this->rh->getRotatedGdResource(
                 $resource,
                 $layer->get('image.rotate.angle'),
@@ -226,12 +215,12 @@ class ImageFactory
                 true
             );
         }
-		
-		if ($layer->has('image.flip')) {
+
+        if ($layer->has('image.flip')) {
             $resource = $this->rh->getFlippedGdResource($resource, $layer->get('image.flip'));
         }
 
-		if ($layer->has('image.opacity')) {
+        if ($layer->has('image.opacity')) {
             $resource = $this->rh->getOpacityGdResource($resource, $layer->get('image.opacity'));
         }
 
@@ -268,8 +257,7 @@ class ImageFactory
             ->imageHeight($extracted->getImageHeight())
             ->colorTable($extracted->getColorTable())
             ->interlaceFlag($extracted->getInterlaceFlag())
-            ->imageData($extracted->getImageData())
-        ;
+            ->imageData($extracted->getImageData());
         if ($extracted->getTransparentColorFlag()) {
             $index = $extracted->getTransparentColorIndex();
             $this->builder->transparentColorIndex($index);
@@ -286,14 +274,14 @@ class ImageFactory
     protected function coalesceFrameResource(BackgroundLayerInterface $layer)
     {
         $extracted = $layer->get('gif.extracted');
-        $quality   = $layer->get('gif.quality');
-        $resource  = $layer->get('gif.frame_resource');
-        $dm        = $extracted->getDisposalMethod();
-        $lm        = $extracted->getLinkedDisposalMethod();
-        $dstX      = $extracted->getImageLeft();
-        $dstY      = $extracted->getImageTop();
-        $width     = $extracted->getCanvasWidth();
-        $height    = $extracted->getCanvasHeight();
+        $quality = $layer->get('gif.quality');
+        $resource = $layer->get('gif.frame_resource');
+        $dm = $extracted->getDisposalMethod();
+        $lm = $extracted->getLinkedDisposalMethod();
+        $dstX = $extracted->getImageLeft();
+        $dstY = $extracted->getImageTop();
+        $width = $extracted->getCanvasWidth();
+        $height = $extracted->getCanvasHeight();
 
         if ($quality) {
             if (GifExtracted::DISPOSAL_METHOD_NONE !== $lm) {
@@ -332,8 +320,8 @@ class ImageFactory
             );
             $layer->set('gif.frame_resource', $resource);
         }
-		
-		if ($layer->has('image.resize.width')) {
+
+        if ($layer->has('image.resize.width')) {
             $resource = $this->rh->getResizedGdResource(
                 $layer->get('gif.frame_resource'),
                 $layer->get('image.resize.width'),
@@ -343,15 +331,15 @@ class ImageFactory
             );
             $layer->set('gif.frame_resource', $resource);
         }
-		
-		if ($layer->has('image.flip')) {
+
+        if ($layer->has('image.flip')) {
             $resource = $this->rh->getFlippedGdResource($layer->get('gif.frame_resource'), $layer->get('image.flip'));
             $layer->set('gif.frame_resource', $resource);
         }
-		
-		if ($layer->has('image.opacity')) {
+
+        if ($layer->has('image.opacity')) {
             $resource = $this->rh->getOpacityGdResource($layer->get('gif.frame_resource'), $layer->get('image.opacity'));
-			$layer->set('gif.frame_resource', $resource);
+            $layer->set('gif.frame_resource', $resource);
         }
     }
 
@@ -363,9 +351,9 @@ class ImageFactory
         if (!$layer->has('gif.cache_resource')) {
             return;
         }
-        $resource      = $layer->get('gif.frame_resource');
+        $resource = $layer->get('gif.frame_resource');
         $cacheResource = $layer->get('gif.cache_resource');
-        $extracted     = $layer->get('gif.extracted');
+        $extracted = $layer->get('gif.extracted');
 
         $resource = $this->rh->getMergedGdResource($resource, $cacheResource);
         if ($extracted->last()) {
@@ -381,10 +369,10 @@ class ImageFactory
     protected function initFrameContents(BackgroundLayerInterface $layer)
     {
         $extracted = $layer->get('gif.extracted');
-        $quality   = $layer->get('gif.quality');
-        $resource  = $layer->get('gif.frame_resource');
-        $dm        = $extracted->getDisposalMethod();
-        $lm        = $extracted->getLinkedDisposalMethod();
+        $quality = $layer->get('gif.quality');
+        $resource = $layer->get('gif.frame_resource');
+        $dm = $extracted->getDisposalMethod();
+        $lm = $extracted->getLinkedDisposalMethod();
 
         if (!$quality) {
             $contents = $this->getGifContentsFromGdResource($resource);
@@ -415,20 +403,21 @@ class ImageFactory
             }
         }
         $layer->set('gif.frame_contents', $contents);
-
     }
 
     /**
-     * @param  resource $resource
+     * @param resource $resource
+     *
      * @return string
      */
     protected function getGifContentsFromGdResource($resource)
     {
-        return $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_GIF, $resource, [], true);
+        return $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_GIF, $resource, array(), true);
     }
 
     /**
-     * @param  string $contents
+     * @param string $contents
+     *
      * @return resource
      */
     protected function getGifResourceFromContents($contents)

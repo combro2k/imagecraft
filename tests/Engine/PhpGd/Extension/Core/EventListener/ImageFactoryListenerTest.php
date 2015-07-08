@@ -15,13 +15,13 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory  = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageFactory', [], [], '', false);
+        $this->factory = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageFactory', array(), array(), '', false);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\ImageFactoryListener',
             null,
-            [$this->factory]
+            array($this->factory)
         );
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
     }
 
     public function testCreateImage()
@@ -40,12 +40,12 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getLayers')
-            ->will($this->returnValue([]))
+            ->will($this->returnValue(array()))
         ;
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue([]))
+            ->will($this->returnValue(array()))
         ;
         $this->listener->createImage($this->event);
     }

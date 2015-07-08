@@ -7,6 +7,7 @@ use Imagecraft\Image;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageFactory
@@ -25,8 +26,9 @@ class ImageFactory
     }
 
     /**
-     * @param  Imagecraft\Layer\LayerInterface[] $layers
-     * @param  mixed[]                             $options
+     * @param Imagecraft\Layer\LayerInterface[] $layers
+     * @param mixed[]                           $options
+     *
      * @return Image
      */
     public function createImage(array $layers, array $options)
