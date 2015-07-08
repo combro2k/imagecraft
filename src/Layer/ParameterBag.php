@@ -4,6 +4,7 @@ namespace Imagecraft\Layer;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ParameterBag implements ParameterBagInterface
@@ -18,7 +19,7 @@ class ParameterBag implements ParameterBagInterface
      */
     public function set($name, $value)
     {
-        $this->parameters[$name] = $value;
+        $this->parameters[ $name ] = $value;
     }
 
     /**
@@ -34,7 +35,7 @@ class ParameterBag implements ParameterBagInterface
      */
     public function get($name)
     {
-        return $this->has($name) ? $this->parameters[$name] : null;
+        return $this->has($name) ? $this->parameters[ $name ] : null;
     }
 
     /**
@@ -51,7 +52,7 @@ class ParameterBag implements ParameterBagInterface
     public function remove($name)
     {
         if ($this->has($name)) {
-            unset($this->parameters[$name]);
+            unset($this->parameters[ $name ]);
         }
     }
 

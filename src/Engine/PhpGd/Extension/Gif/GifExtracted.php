@@ -4,13 +4,14 @@ namespace Imagecraft\Engine\PhpGd\Extension\Gif;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class GifExtracted implements \Countable, \Iterator
 {
-    const DISPOSAL_METHOD_NONE       = 1;
+    const DISPOSAL_METHOD_NONE = 1;
     const DISPOSAL_METHOD_BACKGROUND = 2;
-    const DISPOSAL_METHOD_PREVIOUS   = 3;
+    const DISPOSAL_METHOD_PREVIOUS = 3;
 
     /**
      * @var string
@@ -117,7 +118,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setGraphicControlExtension($contents)
     {
-        $this->graphicControlExtensions[$this->fp] = $contents;
+        $this->graphicControlExtensions[ $this->fp ] = $contents;
     }
 
     /**
@@ -125,7 +126,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function hasGraphicControlExtension()
     {
-        return isset($this->graphicControlExtensions[$this->fp]);
+        return isset($this->graphicControlExtensions[ $this->fp ]);
     }
 
     /**
@@ -133,7 +134,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setImageDescriptor($contents)
     {
-        $this->imageDescriptors[$this->fp] = $contents;
+        $this->imageDescriptors[ $this->fp ] = $contents;
     }
 
     /**
@@ -141,7 +142,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setLocalColorTable($contents)
     {
-        $this->localColorTables[$this->fp] = $contents;
+        $this->localColorTables[ $this->fp ] = $contents;
     }
 
     /**
@@ -149,7 +150,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setImageData($contents)
     {
-        $this->imageDatas[$this->fp] = $contents;
+        $this->imageDatas[ $this->fp ] = $contents;
     }
 
     /**
@@ -157,7 +158,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setLinkedKey($key)
     {
-        $this->linkedKeys[$this->fp] = $key;
+        $this->linkedKeys[ $this->fp ] = $key;
     }
 
     /**
@@ -165,7 +166,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function setLinkedDisposalMethod($method)
     {
-        $this->linkedDisposalMethods[$this->fp] = $method;
+        $this->linkedDisposalMethods[ $this->fp ] = $method;
     }
 
     /**
@@ -173,7 +174,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getCanvasWidth()
     {
-        return unpack('v',substr($this->logicalScreenDescriptor, 0, 2))[1];
+        return unpack('v', substr($this->logicalScreenDescriptor, 0, 2))[1];
     }
 
     /**
@@ -181,7 +182,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getCanvasHeight()
     {
-        return unpack('v',substr($this->logicalScreenDescriptor, 2, 2))[1];
+        return unpack('v', substr($this->logicalScreenDescriptor, 2, 2))[1];
     }
 
     /**
@@ -217,7 +218,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getDisposalMethod()
     {
-        $unpack = unpack('C', substr($this->graphicControlExtensions[$this->fp], 1, 1))[1] >> 2 & 0b00000111;
+        $unpack = unpack('C', substr($this->graphicControlExtensions[ $this->fp ], 1, 1))[1] >> 2 & 0b00000111;
         switch ($unpack) {
             case 2:
                 $method = static::DISPOSAL_METHOD_BACKGROUND;
@@ -237,7 +238,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getTransparentColorFlag()
     {
-        return (bool) (unpack('C', substr($this->graphicControlExtensions[$this->fp], 1, 1))[1] & 0b00000001);
+        return (bool) (unpack('C', substr($this->graphicControlExtensions[ $this->fp ], 1, 1))[1] & 0b00000001);
     }
 
     /**
@@ -245,7 +246,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getTransparentColorIndex()
     {
-        return unpack('C', substr($this->graphicControlExtensions[$this->fp], 4, 1))[1];
+        return unpack('C', substr($this->graphicControlExtensions[ $this->fp ], 4, 1))[1];
     }
 
     /**
@@ -253,7 +254,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getDelayTime()
     {
-        return unpack('v', substr($this->graphicControlExtensions[$this->fp], 2, 2))[1];
+        return unpack('v', substr($this->graphicControlExtensions[ $this->fp ], 2, 2))[1];
     }
 
     /**
@@ -261,7 +262,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getImageLeft()
     {
-        return unpack('v', substr($this->imageDescriptors[$this->fp], 0, 2))[1];
+        return unpack('v', substr($this->imageDescriptors[ $this->fp ], 0, 2))[1];
     }
 
     /**
@@ -269,7 +270,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getImageTop()
     {
-        return unpack('v', substr($this->imageDescriptors[$this->fp], 2, 2))[1];
+        return unpack('v', substr($this->imageDescriptors[ $this->fp ], 2, 2))[1];
     }
 
     /**
@@ -277,7 +278,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getImageWidth()
     {
-        return unpack('v', substr($this->imageDescriptors[$this->fp], 4, 2))[1];
+        return unpack('v', substr($this->imageDescriptors[ $this->fp ], 4, 2))[1];
     }
 
     /**
@@ -285,7 +286,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getImageHeight()
     {
-        return unpack('v', substr($this->imageDescriptors[$this->fp], 6, 2))[1];
+        return unpack('v', substr($this->imageDescriptors[ $this->fp ], 6, 2))[1];
     }
 
     /**
@@ -293,7 +294,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getInterlaceFlag()
     {
-        $packed = $this->imageDescriptors[$this->fp][8];
+        $packed = $this->imageDescriptors[ $this->fp ][8];
 
         return (bool) (unpack('C', $packed)[1] & 0b01000000);
     }
@@ -303,7 +304,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getLocalColorTableFlag()
     {
-        $packed = $this->imageDescriptors[$this->fp][8];
+        $packed = $this->imageDescriptors[ $this->fp ][8];
 
         return (bool) (unpack('C', $packed)[1] & 0b10000000);
     }
@@ -313,7 +314,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getTotalLocalColors()
     {
-        $packed = $this->imageDescriptors[$this->fp][8];
+        $packed = $this->imageDescriptors[ $this->fp ][8];
 
         return pow(2, (unpack('C', $packed)[1] & 0b00000111) + 1);
     }
@@ -323,8 +324,8 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getColorTable()
     {
-        if (isset($this->localColorTables[$this->fp])) {
-            return $this->localColorTables[$this->fp];
+        if (isset($this->localColorTables[ $this->fp ])) {
+            return $this->localColorTables[ $this->fp ];
         }
 
         return $this->globalColorTable;
@@ -335,7 +336,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getImageData()
     {
-        return $this->imageDatas[$this->fp];
+        return $this->imageDatas[ $this->fp ];
     }
 
     /**
@@ -343,7 +344,7 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getLinkedKey()
     {
-        return isset($this->linkedKeys[$this->fp]) ? $this->linkedKeys[$this->fp] : null ;
+        return isset($this->linkedKeys[ $this->fp ]) ? $this->linkedKeys[ $this->fp ] : null;
     }
 
     /**
@@ -351,10 +352,9 @@ class GifExtracted implements \Countable, \Iterator
      */
     public function getLinkedDisposalMethod()
     {
-        return isset($this->linkedDisposalMethods[$this->fp])
-            ? $this->linkedDisposalMethods[$this->fp]
-            : null
-        ;
+        return isset($this->linkedDisposalMethods[ $this->fp ])
+            ? $this->linkedDisposalMethods[ $this->fp ]
+            : null;
     }
 
     /**
@@ -363,6 +363,14 @@ class GifExtracted implements \Countable, \Iterator
     public function isAnimated()
     {
         return 1 < count($this);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        return $this->valid;
     }
 
     /**
@@ -376,17 +384,17 @@ class GifExtracted implements \Countable, \Iterator
     /**
      * @return bool
      */
-    public function isValid()
+    public function last()
     {
-        return $this->valid;
+        return (count($this) - 1) === $this->key();
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function last()
+    public function key()
     {
-        return (count($this) -1) === $this->key();
+        return $this->fp;
     }
 
     /**
@@ -405,17 +413,9 @@ class GifExtracted implements \Countable, \Iterator
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function key()
-    {
-        return $this->fp;
-    }
-
     public function next()
     {
-        $this->fp++;
+        ++$this->fp;
     }
 
     public function rewind()

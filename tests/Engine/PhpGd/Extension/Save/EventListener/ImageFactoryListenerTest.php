@@ -17,7 +17,7 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory  = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Save\\ImageFactory', array(), array(), '', false);
+        $this->factory = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Save\\ImageFactory', array(), array(), '', false);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Save\\EventListener\\ImageFactoryListener',
             null,
@@ -39,9 +39,9 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
     public function testCreateImage()
     {
         $this->layer->add(array(
-            'image.width'  => 10,
+            'image.width' => 10,
             'image.height' => 100,
-            'final.width'  => 10,
+            'final.width' => 10,
             'final.height' => 100,
             'image.format' => 'foo',
             'final.format' => 'foo',

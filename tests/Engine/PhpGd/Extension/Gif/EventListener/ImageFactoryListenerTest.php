@@ -19,7 +19,7 @@ class ImageFactoryListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory  = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\ImageFactory', array(), array(), '', false);
+        $this->factory = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\ImageFactory', array(), array(), '', false);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\ImageFactoryListener',
             null,

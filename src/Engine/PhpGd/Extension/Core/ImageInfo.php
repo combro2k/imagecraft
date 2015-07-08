@@ -2,11 +2,12 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core;
 
-use Imagecraft\Exception\InvalidImageException;
 use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Exception\InvalidImageException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageInfo
@@ -25,7 +26,8 @@ class ImageInfo
     }
 
     /**
-     * @param  string $stream
+     * @param string $stream
+     *
      * @return (string|int)[]
      */
     public function resolveFromStream($stream)
@@ -38,21 +40,8 @@ class ImageInfo
     }
 
     /**
-     * @param  string $contents
-     * @return (string|int)[]
-     */
-    public function resolveFromContents($contents)
-    {
-        $fp = fopen('php://temp', 'r+');
-        fwrite($fp, $contents);
-        $info = $this->resolveFromFilePointer($fp);
-        @fclose($fp);
-
-        return $info;
-    }
-
-    /**
-     * @param  resource $fp
+     * @param resource $fp
+     *
      * @return (string|int)[]
      */
     public function resolveFromFilePointer($fp)
@@ -71,7 +60,54 @@ class ImageInfo
     }
 
     /**
-     * @param  resource $fp
+     * @param resource $fp
+     *
+     * @throws InvalidImageException
+     */
+    protected function handleException($fp)
+    {
+        rewind($fp);
+        $contents = fread($fp, 2048);
+        $supported = $this->context->getSupportedImageFormatsToString();
+        $mime = null;
+        if ($this->context->isFileinfoExtensionEnabled()) {
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
+            $mime = @$finfo->buffer($contents);
+            $mime = ($mime && 'binary' !== $mime) ? $mime : null;
+        }
+        if ($mime) {
+            $unsupported = explode('/', $mime);
+            $unsupported = strtoupper(array_pop($unsupported));
+            throw new InvalidImageException(
+                'unsupported.image.format.or.file.corrupted.%unsupported%.%supported%',
+                array('%unsupported%' => '"'.$unsupported.'"', '%supported%' => $supported)
+            );
+        } else {
+            throw new InvalidImageException(
+                'unknown.image.format.or.file.corrupted.%supported%',
+                array('%supported%' => $supported)
+            );
+        }
+    }
+
+    /**
+     * @param string $contents
+     *
+     * @return (string|int)[]
+     */
+    public function resolveFromContents($contents)
+    {
+        $fp = fopen('php://temp', 'r+');
+        fwrite($fp, $contents);
+        $info = $this->resolveFromFilePointer($fp);
+        @fclose($fp);
+
+        return $info;
+    }
+
+    /**
+     * @param resource $fp
+     *
      * @return (string|int)[]|false
      */
     protected function resolveWebp($fp)
@@ -87,12 +123,12 @@ class ImageInfo
         }
         $pattern = '/(?s)\\ARIFF.{4}WEBPVP8\\s.{10}(?<width>.{2})(?<height>.{2})/';
         if (preg_match($pattern, $contents, $matches)) {
-            $width  = unpack('v', $matches['width'])[1];
+            $width = unpack('v', $matches['width'])[1];
             $height = unpack('v', $matches['height'])[1];
 
             return array(
                 'format' => PhpGdContext::FORMAT_WEBP,
-                'width'  => $width,
+                'width' => $width,
                 'height' => $height,
             );
         }
@@ -101,7 +137,8 @@ class ImageInfo
     }
 
     /**
-     * @param  resource $fp
+     * @param resource $fp
+     *
      * @return (string|int)[]|false
      */
     protected function resolveGif($fp)
@@ -109,12 +146,12 @@ class ImageInfo
         rewind($fp);
         $contents = fread($fp, 10);
         if (preg_match('/(?s)\\AGIF8(7|9)a(?<width>.{2})(?<height>.{2})/', $contents, $matches)) {
-            $width  = unpack('v', $matches['width'])[1];
+            $width = unpack('v', $matches['width'])[1];
             $height = unpack('v', $matches['height'])[1];
 
             return array(
                 'format' => PhpGdContext::FORMAT_GIF,
-                'width'  => $width,
+                'width' => $width,
                 'height' => $height,
             );
         }
@@ -123,7 +160,8 @@ class ImageInfo
     }
 
     /**
-     * @param  resource $fp
+     * @param resource $fp
+     *
      * @return (string|int)[]|false
      */
     protected function resolvePng($fp)
@@ -135,12 +173,12 @@ class ImageInfo
             $contents,
             $matches
         )) {
-            $width  = unpack('N', $matches['width'])[1];
+            $width = unpack('N', $matches['width'])[1];
             $height = unpack('N', $matches['height'])[1];
 
             return array(
                 'format' => PhpGdContext::FORMAT_PNG,
-                'width'  => $width,
+                'width' => $width,
                 'height' => $height,
             );
         }
@@ -149,14 +187,15 @@ class ImageInfo
     }
 
     /**
-     * @param  resource $fp
+     * @param resource $fp
+     *
      * @return (string|int)[]|false
      */
     protected function resolveJpeg($fp)
     {
         rewind($fp);
         if ("\xff\xd8" === fread($fp, 2)) {
-            while(!feof($fp)) {
+            while (!feof($fp)) {
                 if (isset($c)) {
                     $char = $c;
                     unset($c);
@@ -169,11 +208,11 @@ class ImageInfo
                 if ("\xc0" === $char || "\xc2" === $char) {
                     fread($fp, 3);
                     $height = unpack('n', fread($fp, 2))[1];
-                    $width  = unpack('n', fread($fp, 2))[1];
+                    $width = unpack('n', fread($fp, 2))[1];
 
                     return array(
                         'format' => PhpGdContext::FORMAT_JPEG,
-                        'width'  => $width,
+                        'width' => $width,
                         'height' => $height,
                     );
                 }
@@ -196,7 +235,7 @@ class ImageInfo
                     fread($fp, $remainder - 2);
                     $quotient = floor($length / 1024);
                     if ($quotient) {
-                        for ($i = 0; $i < $quotient; $i++) {
+                        for ($i = 0; $i < $quotient; ++$i) {
                             fread($fp, 1024);
                         }
                     }
@@ -205,35 +244,5 @@ class ImageInfo
         }
 
         return false;
-    }
-
-    /**
-     * @param  resource $fp
-     * @throws InvalidImageException
-     */
-    protected function handleException($fp)
-    {
-        rewind($fp);
-        $contents  = fread($fp, 2048);
-        $supported = $this->context->getSupportedImageFormatsToString();
-        $mime = null;
-        if ($this->context->isFileinfoExtensionEnabled()) {
-            $finfo = new \finfo(FILEINFO_MIME_TYPE);
-            $mime = @$finfo->buffer($contents);
-            $mime = ($mime && 'binary' !== $mime) ? $mime : null;
-        }
-        if ($mime) {
-           $unsupported = explode('/', $mime);
-           $unsupported = strtoupper(array_pop($unsupported));
-            throw new InvalidImageException(
-                'unsupported.image.format.or.file.corrupted.%unsupported%.%supported%',
-                array('%unsupported%' => '"'.$unsupported.'"', '%supported%' => $supported)
-            );
-        } else {
-            throw new InvalidImageException(
-                'unknown.image.format.or.file.corrupted.%supported%',
-                array('%supported%' => $supported)
-            );
-        }
     }
 }

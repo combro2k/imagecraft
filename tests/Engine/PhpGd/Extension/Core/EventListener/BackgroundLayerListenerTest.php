@@ -16,8 +16,8 @@ class BackgroundLayerListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->listener = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\EventListener\\BackgroundLayerListener', null);
-        $this->layer    = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->event    = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
+        $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
             ->will($this->returnValue(array($this->layer)))

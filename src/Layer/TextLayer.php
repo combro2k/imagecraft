@@ -4,6 +4,7 @@ namespace Imagecraft\Layer;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class TextLayer extends AbstractLayer implements TextLayerInterface
@@ -14,8 +15,8 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
     public function font($filename, $size = 12, $color = '#FFF')
     {
         $this->add(array(
-            'text.font.filename'  => $filename,
-            'text.font.size'      => $size,
+            'text.font.filename' => $filename,
+            'text.font.size' => $size,
             'text.font.hex_color' => $color,
         ));
 
@@ -55,32 +56,33 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
     public function box(array $paddings, $color = null)
     {
         $this->add(array(
-            'text.box.paddings'  => $paddings,
+            'text.box.paddings' => $paddings,
             'text.box.hex_color' => $color,
         ));
 
         return $this;
     }
-	
+
     /**
      * @inheritDoc
+     *
      * @param int $opacity level of opacity
      */
     public function opacity($opacity)
     {
         $this->add(array('image.opacity' => $opacity));
-        
-		return $this;
+
+        return $this;
     }
-	
+
     /**
      * @inheritDoc
      */
     public function move($x, $y, $gravity = RegularLayerInterface::MOVE_TOP_LEFT)
     {
         $this->add(array(
-            'regular.move.x'       => $x,
-            'regular.move.y'       => $y,
+            'regular.move.x' => $x,
+            'regular.move.y' => $y,
             'regular.move.gravity' => $gravity,
         ));
 

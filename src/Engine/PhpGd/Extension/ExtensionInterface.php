@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 interface ExtensionInterface

@@ -9,17 +9,82 @@ use Imagecraft\AbstractContext;
  * XPM is not supported either as GD has no XPM output functions.
  *
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class PhpGdContext extends AbstractContext
 {
     const FORMAT_WEBP = 'webp';
-    const FORMAT_PNG  = 'png';
+    const FORMAT_PNG = 'png';
     const FORMAT_JPEG = 'jpeg';
-    const FORMAT_GIF  = 'gif';
+    const FORMAT_GIF = 'gif';
 
     /**
-     * @param  string $format
+     * @param string $format
+     *
+     * @return string
+     */
+    public function getImageMime($format)
+    {
+        $mimes = array(
+            static::FORMAT_WEBP => 'image/webp',
+            static::FORMAT_PNG => 'image/png',
+            static::FORMAT_JPEG => 'image/jpeg',
+            static::FORMAT_GIF => 'image/gif',
+        );
+
+        return $mimes[ $format ];
+    }
+
+    /**
+     * @param string $format
+     *
+     * @return string
+     */
+    public function getImageExtension($format)
+    {
+        $extensions = array(
+            static::FORMAT_WEBP => 'webp',
+            static::FORMAT_PNG => 'png',
+            static::FORMAT_JPEG => 'jpg',
+            static::FORMAT_GIF => 'gif',
+        );
+
+        return $extensions[ $format ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isEngineSupported()
+    {
+        return extension_loaded('gd');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSupportedImageFormatsToString()
+    {
+        $formats = array(
+            array(static::FORMAT_WEBP, 'WEBP (VP8)'),
+            array(static::FORMAT_PNG, 'PNG'),
+            array(static::FORMAT_JPEG, 'JPEG'),
+            array(static::FORMAT_GIF, 'GIF'),
+        );
+        for ($i = 0, $str = ''; $i < count($formats); ++$i) {
+            if ($this->isImageFormatSupported($formats[ $i ][0])) {
+                $str .= (0 == $i) ? '"' : ', "';
+                $str .= $formats[ $i ][1].'"';
+            }
+        }
+
+        return $str;
+    }
+
+    /**
+     * @param string $format
+     *
      * @return bool
      */
     public function isImageFormatSupported($format)
@@ -45,75 +110,6 @@ class PhpGdContext extends AbstractContext
     }
 
     /**
-     * @param  string $format
-     * @return string
-     */
-    public function getImageMime($format)
-    {
-        $mimes = array(
-            static::FORMAT_WEBP => 'image/webp',
-            static::FORMAT_PNG  => 'image/png',
-            static::FORMAT_JPEG => 'image/jpeg',
-            static::FORMAT_GIF  => 'image/gif',
-        );
-
-        return $mimes[$format];
-    }
-
-    /**
-     * @param  string $format
-     * @return string
-     */
-    public function getImageExtension($format)
-    {
-        $extensions = array(
-            static::FORMAT_WEBP => 'webp',
-            static::FORMAT_PNG  => 'png',
-            static::FORMAT_JPEG => 'jpg',
-            static::FORMAT_GIF  => 'gif',
-        );
-
-        return $extensions[$format];
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFreeTypeSupported()
-    {
-        return function_exists('imagefttext');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function isEngineSupported()
-    {
-        return extension_loaded('gd');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSupportedImageFormatsToString()
-    {
-        $formats = array(
-            array(static::FORMAT_WEBP, 'WEBP (VP8)'),
-            array(static::FORMAT_PNG,  'PNG'),
-            array(static::FORMAT_JPEG, 'JPEG'),
-            array(static::FORMAT_GIF,  'GIF'),
-        );
-        for ($i = 0, $str = ''; $i < count($formats); $i++) {
-            if ($this->isImageFormatSupported($formats[$i][0])) {
-                $str .= (0 == $i) ? '"' : ', "';
-                $str .= $formats[$i][1].'"';
-            }
-        }
-
-        return $str;
-    }
-
-    /**
      * @inheritDoc
      */
     public function getSupportedFontFormatsToString()
@@ -123,5 +119,13 @@ class PhpGdContext extends AbstractContext
         }
 
         return '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFreeTypeSupported()
+    {
+        return function_exists('imagefttext');
     }
 }

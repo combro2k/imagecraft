@@ -7,7 +7,7 @@ use Imagecraft\Engine\Fixtures\FooEngine;
 /**
  * @covers Imagecraft\Engine\DelegatingEngine
  */
-class DelegatingEngine extends \PHPUnit_Framework_TestCase
+class DelegatingEngineTest extends \PHPUnit_Framework_TestCase
 {
     protected $engine;
 

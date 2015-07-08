@@ -2,15 +2,16 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
 use Imagecraft\Exception\RuntimeException;
 use Imagecraft\Layer\TextLayerInterface;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
-use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class TextLayerListener implements EventSubscriberInterface
@@ -40,6 +41,7 @@ class TextLayerListener implements EventSubscriberInterface
 
     /**
      * @param  PhpGdEvent
+     *
      * @throws RuntimeException
      */
     public function verifyFreeType(PhpGdEvent $event)

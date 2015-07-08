@@ -19,7 +19,7 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $extractor      = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifExtractor', null);
+        $extractor = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifExtractor', null);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\GifExtractorListener',
             null,

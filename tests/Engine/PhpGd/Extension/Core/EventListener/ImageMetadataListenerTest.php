@@ -42,9 +42,9 @@ class ImageMetadataListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->layer->add(array(
             'final.format' => PhpGdContext::FORMAT_JPEG,
-            'final.width'  => 100,
+            'final.width' => 100,
             'final.height' => 200,
-            'image.width'  => 300,
+            'image.width' => 300,
             'image.height' => 400,
         ));
         $this->listener->addImageMetadatas($this->event);

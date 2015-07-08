@@ -6,6 +6,7 @@ use Imagecraft\ImageBuilder;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 abstract class AbstractLayer extends ParameterBag implements LayerInterface

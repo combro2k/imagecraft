@@ -15,7 +15,7 @@ class RegularLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->pass  = $this->getMock('Imagecraft\\LayerPass\\RegularLayerPass', null);
+        $this->pass = $this->getMock('Imagecraft\\LayerPass\\RegularLayerPass', null);
         $this->layer = $this->getMock('Imagecraft\\Layer\\ImageLayer', null);
     }
 
@@ -28,8 +28,8 @@ class RegularLayerPassTest extends \PHPUnit_Framework_TestCase
 
         $this->layer->clear();
         $this->layer->add(array(
-            'regular.move.x'       => 11.1,
-            'regular.move.y'       => -10,
+            'regular.move.x' => 11.1,
+            'regular.move.y' => -10,
             'regular.move.gravity' => RegularLayerInterface::MOVE_TOP_LEFT,
 
         ));

@@ -2,14 +2,15 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Gif\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Exception\TranslatedException;
 use Imagecraft\Engine\PhpGd\PhpGdContext;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
 use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Imagecraft\Exception\TranslatedException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class MemoryRequirementListener implements EventSubscriberInterface
@@ -38,7 +39,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            PhpGdEvents::PRE_IMAGE    => array('verifyMemoryLimit', 819),
+            PhpGdEvents::PRE_IMAGE => array('verifyMemoryLimit', 819),
             PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 199),
         );
     }
@@ -55,15 +56,15 @@ class MemoryRequirementListener implements EventSubscriberInterface
         }
 
         $totalFrames = count($layers[0]->get('gif.extracted'));
-        $width       = $layers[0]->get('image.width');
-        $height      = $layers[0]->get('image.height');
-        $pixels      = $width * $height;
-        $finalWidth  = $layers[0]->get('final.width');
+        $width = $layers[0]->get('image.width');
+        $height = $layers[0]->get('image.height');
+        $pixels = $width * $height;
+        $finalWidth = $layers[0]->get('final.width');
         $finalHeight = $layers[0]->get('final.height');
         $finalPixels = $finalWidth * $finalHeight;
         $totalPixels = $totalFrames * $finalPixels;
-        $limit       = $this->context->getMemoryLimit($options['memory_limit']);
-        $peak        = memory_get_peak_usage(true) + 15 * 1024 * 1024 + 3 * ($pixels + $finalPixels);
+        $limit = $this->context->getMemoryLimit($options['memory_limit']);
+        $peak = memory_get_peak_usage(true) + 15 * 1024 * 1024 + 3 * ($pixels + $finalPixels);
 
         if (1000000 < $finalPixels || 57000000 < $totalPixels || $peak > $limit) {
             $e = new TranslatedException(
@@ -78,7 +79,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
     }
 
     /**
-     * param PhpGdEvent $event
+     * param PhpGdEvent $event.
      */
     public function addImageExtras(PhpGdEvent $event)
     {

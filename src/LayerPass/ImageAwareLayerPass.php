@@ -2,12 +2,12 @@
 
 namespace Imagecraft\LayerPass;
 
-use Imagecraft\Layer\LayerInterface;
-use Imagecraft\Layer\ImageAwareLayerInterface;
 use Imagecraft\Exception\BadMethodCallException;
+use Imagecraft\Layer\ImageAwareLayerInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageAwareLayerPass extends AbstractLayerPass
@@ -30,7 +30,8 @@ class ImageAwareLayerPass extends AbstractLayerPass
     }
 
     /**
-     * @param  ImageAwareLayerInterface $layer
+     * @param ImageAwareLayerInterface $layer
+     *
      * @throws BadMethodCallException
      */
     public function processResource(ImageAwareLayerInterface $layer)
@@ -62,8 +63,8 @@ class ImageAwareLayerPass extends AbstractLayerPass
     public function processResize(ImageAwareLayerInterface $layer)
     {
         if ($layer->has('image.resize.width')) {
-            $width  = (int) $layer->get('image.resize.width');
-            $width  = (0 >= $width)  ? 1 : $width;
+            $width = (int) $layer->get('image.resize.width');
+            $width = (0 >= $width) ? 1 : $width;
             $layer->set('image.resize.width', $width);
 
             $height = (int) $layer->get('image.resize.height');

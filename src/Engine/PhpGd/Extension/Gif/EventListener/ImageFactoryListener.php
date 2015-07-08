@@ -2,14 +2,15 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Gif\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Exception\TranslatedException;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
 use Imagecraft\Engine\PhpGd\Extension\Gif\ImageFactory;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Imagecraft\Exception\TranslatedException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageFactoryListener implements EventSubscriberInterface
@@ -38,7 +39,7 @@ class ImageFactoryListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            PhpGdEvents::IMAGE        => array('createImage', 199),
+            PhpGdEvents::IMAGE => array('createImage', 199),
             PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 869),
         );
     }
@@ -55,7 +56,7 @@ class ImageFactoryListener implements EventSubscriberInterface
 
         try {
             $options = $event->getOptions();
-            $image   = $this->factory->createImage($layers, $options);
+            $image = $this->factory->createImage($layers, $options);
             $event->setImage($image);
             $event->stopPropagation();
         } catch (\Exception $e) {
@@ -65,7 +66,7 @@ class ImageFactoryListener implements EventSubscriberInterface
     }
 
     /**
-     * param PhpGdEvent $event
+     * param PhpGdEvent $event.
      */
     public function addImageExtras(PhpGdEvent $event)
     {

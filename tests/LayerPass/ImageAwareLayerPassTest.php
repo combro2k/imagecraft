@@ -15,7 +15,7 @@ class ImageAwareLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->pass  = $this->getMock('Imagecraft\\LayerPass\\ImageAwareLayerPass', null);
+        $this->pass = $this->getMock('Imagecraft\\LayerPass\\ImageAwareLayerPass', null);
         $this->layer = $this->getMock('Imagecraft\\Layer\\ImageLayer', null);
     }
 
@@ -49,7 +49,7 @@ class ImageAwareLayerPassTest extends \PHPUnit_Framework_TestCase
     public function testProcessResize()
     {
         $this->layer->add(array(
-            'image.resize.width'  => -5,
+            'image.resize.width' => -5,
             'image.resize.height' => 0,
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_SHRINK,
         ));

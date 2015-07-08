@@ -6,6 +6,7 @@ use Imagecraft\Exception\FileParseException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class GifExtractor
@@ -21,7 +22,8 @@ class GifExtractor
     protected $dp;
 
     /**
-     * @param  string $uri
+     * @param string $uri
+     *
      * @return GifExtracted
      */
     public function extractFromStream($uri)
@@ -35,23 +37,10 @@ class GifExtractor
     }
 
     /**
-     * @param  string $contents
+     * @param resource $fp
+     *
      * @return GifExtracted
-     */
-    public function extractFromContents($contents)
-    {
-        $fp = fopen('php://memory', 'r+');
-        fwrite($fp, $contents);
-        rewind($fp);
-        $extracted = $this->extractFromFilePointer($fp);
-        fclose($fp);
-
-        return $extracted;
-    }
-
-    /**
-     * @param  resource $fp
-     * @return GifExtracted
+     *
      * @throws FileParseException
      */
     public function extractFromFilePointer($fp)
@@ -98,6 +87,24 @@ class GifExtractor
     }
 
     /**
+     * @param resource $fp
+     * @param int      $length
+     *
+     * @return string
+     *
+     * @throws FileParseException
+     */
+    protected function read($fp, $length)
+    {
+        $bytes = @fread($fp, $length);
+        if (false === $bytes || $length > strlen($bytes)) {
+            throw new FileParseException('gif.parse.error');
+        }
+
+        return $bytes;
+    }
+
+    /**
      * @param resource     $fp
      * @param GifExtracted $extracted
      */
@@ -109,7 +116,7 @@ class GifExtractor
                     $this->readDataBlock($fp);
                     break;
                 }
-                $extracted->setNetscapeExtension("\x0bNETSCAPE2.0" . $this->read($fp, 5));
+                $extracted->setNetscapeExtension("\x0bNETSCAPE2.0".$this->read($fp, 5));
                 break;
             case "\xF9":
                 $contents = $this->read($fp, 6);
@@ -121,6 +128,33 @@ class GifExtractor
             default:
                 $this->readDataBlock($fp);
         }
+    }
+
+    /**
+     * @param resource $fp
+     *
+     * @return string
+     *
+     * @throws FileParseException
+     */
+    protected function readDataBlock($fp)
+    {
+        $str = '';
+        while (true) {
+            $packed = $this->read($fp, 1);
+            if ("\x00" === $packed) {
+                $str .= "\x00";
+                break;
+            }
+            $str .= $packed;
+            $blockSize = unpack('C', $packed)[1];
+            if (0 === $blockSize) {
+                throw new FileParseException('gif.parse.error');
+            }
+            $str .= $this->read($fp, $blockSize);
+        }
+
+        return $str;
     }
 
     /**
@@ -148,7 +182,7 @@ class GifExtractor
             $extracted->setLocalColorTable($this->read($fp, $quantity * 3));
         }
 
-        $extracted->setImageData($this->read($fp, 1) . $this->readDataBlock($fp));
+        $extracted->setImageData($this->read($fp, 1).$this->readDataBlock($fp));
         $extracted->next();
     }
 
@@ -164,43 +198,18 @@ class GifExtractor
     }
 
     /**
-     * @param  resource $fp
-     * @return string
-     * @throws FileParseException
+     * @param string $contents
+     *
+     * @return GifExtracted
      */
-    protected function readDataBlock($fp)
+    public function extractFromContents($contents)
     {
-        $str = '';
-        while (true) {
-            $packed = $this->read($fp, 1);
-            if ("\x00" === $packed) {
-                $str .= "\x00";
-                break;
-            }
-            $str .= $packed;
-            $blockSize = unpack('C', $packed)[1];
-            if (0 === $blockSize) {
-                throw new FileParseException('gif.parse.error');
-            }
-            $str .= $this->read($fp, $blockSize);
-        }
+        $fp = fopen('php://memory', 'r+');
+        fwrite($fp, $contents);
+        rewind($fp);
+        $extracted = $this->extractFromFilePointer($fp);
+        fclose($fp);
 
-        return $str;
-    }
-
-    /**
-     * @param  resource $fp
-     * @param  int      $length
-     * @return string
-     * @throws FileParseException
-     */
-    protected function read($fp, $length)
-    {
-        $bytes = @fread($fp, $length);
-        if (false === $bytes || $length > strlen($bytes)) {
-            throw new FileParseException('gif.parse.error');
-        }
-
-        return $bytes;
+        return $extracted;
     }
 }

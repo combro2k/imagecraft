@@ -19,7 +19,7 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $context        = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
+        $context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\MemoryRequirementListener',
             null,
@@ -49,9 +49,9 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         ;
         $this->layer->add(array(
             'image.format' => PhpGdContext::FORMAT_JPEG,
-            'image.width'  => 1000000,
+            'image.width' => 1000000,
             'image.height' => 1000000,
-            'final.width'  => 200,
+            'final.width' => 200,
             'final.height' => 200,
         ));
         $this->listener->verifyMemoryLimit($this->event);
@@ -65,9 +65,9 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         ;
         $this->layer->add(array(
             'image.format' => PhpGdContext::FORMAT_JPEG,
-            'image.width'  => 100,
+            'image.width' => 100,
             'image.height' => 100,
-            'final.width'  => 100,
+            'final.width' => 100,
             'final.height' => 100,
         ));
         $this->listener->verifyMemoryLimit($this->event);

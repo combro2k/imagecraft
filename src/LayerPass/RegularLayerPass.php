@@ -2,11 +2,11 @@
 
 namespace Imagecraft\LayerPass;
 
-use Imagecraft\Layer\LayerInterface;
 use Imagecraft\Layer\RegularLayerInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class RegularLayerPass extends AbstractLayerPass
@@ -34,8 +34,8 @@ class RegularLayerPass extends AbstractLayerPass
     {
         if (!$layer->has('regular.move.x')) {
             $layer->add(array(
-                'regular.move.x'       => 0,
-                'regular.move.y'       => 0,
+                'regular.move.x' => 0,
+                'regular.move.y' => 0,
                 'regular.move.gravity' => RegularLayerInterface::MOVE_CENTER,
             ));
 

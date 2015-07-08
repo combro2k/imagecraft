@@ -6,6 +6,7 @@ namespace Imagecraft\Engine\PhpGd\Extension\Gif;
  * Builds GIF using data extracted from GifExtractor.
  *
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class GifBuilder
@@ -41,7 +42,8 @@ class GifBuilder
     protected $imageData;
 
     /**
-     * @param  int $width
+     * @param int $width
+     *
      * @return $this
      */
     public function imageWidth($width)
@@ -52,7 +54,8 @@ class GifBuilder
     }
 
     /**
-     * @param  int $height
+     * @param int $height
+     *
      * @return $this
      */
     public function imageHeight($height)
@@ -63,7 +66,8 @@ class GifBuilder
     }
 
     /**
-     * @param  bool $flag
+     * @param bool $flag
+     *
      * @return $this
      */
     public function interlaceFlag($flag)
@@ -74,7 +78,8 @@ class GifBuilder
     }
 
     /**
-     * @param  int $index
+     * @param int $index
+     *
      * @return $this
      */
     public function transparentColorIndex($index)
@@ -85,7 +90,8 @@ class GifBuilder
     }
 
     /**
-     * @param  string $contents
+     * @param string $contents
+     *
      * @return $this
      */
     public function colorTable($contents)
@@ -96,7 +102,8 @@ class GifBuilder
     }
 
     /**
-     * @param  string $contents
+     * @param string $contents
+     *
      * @return $this
      */
     public function imageData($contents)
@@ -147,8 +154,8 @@ class GifBuilder
         $this->imageHeight = null;
         $this->interlaceFlag = null;
         $this->transparentColorIndex = null;
-        $this->colorTable= null;
-        $this->imageData= null;
+        $this->colorTable = null;
+        $this->imageData = null;
 
         return $contents;
     }

@@ -6,6 +6,7 @@ use TranslatedException\TranslatedException as BaseTranslatedException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class TranslatedException extends BaseTranslatedException

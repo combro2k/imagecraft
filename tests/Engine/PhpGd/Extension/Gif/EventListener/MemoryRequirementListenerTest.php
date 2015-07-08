@@ -19,7 +19,7 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context  = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
+        $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\MemoryRequirementListener',
             null,
@@ -47,10 +47,10 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         ;
         $this->layer->add(array(
             'gif.extracted' => array(0, 0, 0, 0),
-            'image.width'   => 100,
-            'image.height'  => 100,
-            'final.width'   => 10,
-            'final.height'  => 10,
+            'image.width' => 100,
+            'image.height' => 100,
+            'final.width' => 10,
+            'final.height' => 10,
         ));
         $this->listener->verifyMemoryLimit($this->event);
         $this->listener->addImageExtras($this->event);
@@ -66,10 +66,10 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         ;
         $this->layer->add(array(
             'gif.extracted' => array(0, 0, 0, 0),
-            'image.width'   => 10000000000000000000000,
-            'image.height'  => 10000000000000000000000,
-            'final.width'   => 10,
-            'final.height'  => 10,
+            'image.width' => 10000000000000000000000,
+            'image.height' => 10000000000000000000000,
+            'final.width' => 10,
+            'final.height' => 10,
         ));
         $this->listener->verifyMemoryLimit($this->event);
         $this->listener->addImageExtras($this->event);

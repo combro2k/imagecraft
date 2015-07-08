@@ -12,7 +12,7 @@ class GifBuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->extractor = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifExtractor', null);
-        $this->builder   = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilder', null);
+        $this->builder = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilder', null);
     }
 
     /**

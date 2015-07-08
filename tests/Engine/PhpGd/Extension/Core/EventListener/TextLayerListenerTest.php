@@ -17,7 +17,7 @@ class TextLayerListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context  = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext');
+        $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext');
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\TextLayerListener',
             null,

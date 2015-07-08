@@ -6,6 +6,7 @@ namespace Imagecraft\Engine\PhpGd\Extension\Gif;
  * Builds Animated GIF using data extracted from GifExtractor.
  *
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class GifBuilderPlus
@@ -81,7 +82,8 @@ class GifBuilderPlus
     protected $fp;
 
     /**
-     * @param  int $width
+     * @param int $width
+     *
      * @return $this
      */
     public function canvasWidth($width)
@@ -92,7 +94,8 @@ class GifBuilderPlus
     }
 
     /**
-     * @param  int $height
+     * @param int $height
+     *
      * @return $this
      */
     public function canvasHeight($height)
@@ -103,7 +106,8 @@ class GifBuilderPlus
     }
 
     /**
-     * @param  int $loop
+     * @param int $loop
+     *
      * @return $this
      */
     public function loop($loop)
@@ -114,111 +118,121 @@ class GifBuilderPlus
     }
 
     /**
-     * @param  int $dispose
+     * @param int $dispose
+     *
      * @return $this
      */
     public function dispose($dispose)
     {
-        $this->disposes[$this->fp] = $dispose;
+        $this->disposes[ $this->fp ] = $dispose;
 
         return $this;
     }
 
     /**
-     * @param  int $index
+     * @param int $index
+     *
      * @return $this
      */
     public function transparentColorIndex($index)
     {
-        $this->transparentColorIndexes[$this->fp] = $index;
+        $this->transparentColorIndexes[ $this->fp ] = $index;
 
         return $this;
     }
 
     /**
-     * @param  int $time
+     * @param int $time
+     *
      * @return $this
      */
     public function delayTime($time)
     {
-        $this->delayTimes[$this->fp] = $time;
+        $this->delayTimes[ $this->fp ] = $time;
 
         return $this;
     }
 
     /**
-     * @param  int $left
+     * @param int $left
+     *
      * @return $this
      */
     public function imageLeft($left)
     {
-        $this->imageLefts[$this->fp] = $left;
+        $this->imageLefts[ $this->fp ] = $left;
 
         return $this;
     }
 
     /**
-     * @param  int $top
+     * @param int $top
+     *
      * @return $this
      */
     public function imageTop($top)
     {
-        $this->imageTops[$this->fp] = $top;
+        $this->imageTops[ $this->fp ] = $top;
 
         return $this;
     }
 
     /**
-     * @param  int $width
+     * @param int $width
+     *
      * @return $this
      */
     public function imageWidth($width)
     {
-        $this->imageWidths[$this->fp] = $width;
+        $this->imageWidths[ $this->fp ] = $width;
 
         return $this;
     }
 
     /**
-     * @param  int $height
+     * @param int $height
+     *
      * @return $this
      */
     public function imageHeight($height)
     {
-        $this->imageHeights[$this->fp] = $height;
+        $this->imageHeights[ $this->fp ] = $height;
 
         return $this;
     }
 
     /**
-     * @param  bool $flag
+     * @param bool $flag
+     *
      * @return $this
      */
     public function interlaceFlag($flag)
     {
-        $this->interlaceFlags[$this->fp] = $flag;
+        $this->interlaceFlags[ $this->fp ] = $flag;
 
         return $this;
     }
 
     /**
-     * @param  int $contents
+     * @param int $contents
+     *
      * @return $this
      */
     public function colorTable($contents)
     {
-        $this->colorTables[$this->fp] = $contents;
+        $this->colorTables[ $this->fp ] = $contents;
 
         return $this;
     }
 
     /**
-     * @param  int $contents
+     * @param int $contents
+     *
      * @return $this
      */
     public function imageData($contents)
     {
-        $this->imageDatas[$this->fp] = $contents;
+        $this->imageDatas[ $this->fp ] = $contents;
 
         return $this;
     }
@@ -231,7 +245,7 @@ class GifBuilderPlus
         if (!isset($this->fp)) {
             $this->fp = 0;
         } else {
-            $this->fp++;
+            ++$this->fp;
         }
 
         return $this;
@@ -246,7 +260,7 @@ class GifBuilderPlus
         $contents = 'GIF89a';
 
         // Logical screen descriptor
-        $contents .= pack('v*', $this->canvasWidth, $this->canvasHeight) . "\x00\x00\x00";
+        $contents .= pack('v*', $this->canvasWidth, $this->canvasHeight)."\x00\x00\x00";
 
         // Netscape Extenstion
         $contents .= "\x21\xFF\x0B";
@@ -255,34 +269,34 @@ class GifBuilderPlus
         $contents .= pack('v', $this->loop);
         $contents .= "\x00";
 
-        for ($i = 0; $i < count($this->imageDatas); $i++) {
+        for ($i = 0; $i < count($this->imageDatas); ++$i) {
 
             // Graphic control extension
             $contents .= "\x21\xF9\x04";
-            $unpack = $this->disposes[$i] << 2;
-            if (isset($this->transparentColorIndexes[$i])) {
+            $unpack = $this->disposes[ $i ] << 2;
+            if (isset($this->transparentColorIndexes[ $i ])) {
                 $unpack = $unpack | 0b00000001;
             }
             $contents .= pack('C', $unpack);
-            $contents .= pack('v', $this->delayTimes[$i]);
-            $contents .= pack('C', $this->transparentColorIndexes[$i]);
+            $contents .= pack('v', $this->delayTimes[ $i ]);
+            $contents .= pack('C', $this->transparentColorIndexes[ $i ]);
             $contents .= "\x00";
 
             // Image descriptor
             $contents .= "\x2C";
-            $contents .= pack('v*', $this->imageLefts[$i], $this->imageTops[$i]);
-            $contents .= pack('v*', $this->imageWidths[$i], $this->imageHeights[$i]);
-            $interlace = $this->interlaceFlags[$i] ? 0b01000000 : 0;
-            $colorTableSize = log(strlen($this->colorTables[$i]) / 3, 2) - 1;
+            $contents .= pack('v*', $this->imageLefts[ $i ], $this->imageTops[ $i ]);
+            $contents .= pack('v*', $this->imageWidths[ $i ], $this->imageHeights[ $i ]);
+            $interlace = $this->interlaceFlags[ $i ] ? 0b01000000 : 0;
+            $colorTableSize = log(strlen($this->colorTables[ $i ]) / 3, 2) - 1;
             $unpack = 0b10000000 | $interlace | $colorTableSize;
             $pack = pack('C', $unpack);
             $contents .= $pack;
 
             // Local color table
-            $contents .= $this->colorTables[$i];
+            $contents .= $this->colorTables[ $i ];
 
             // Image Data
-            $contents .= $this->imageDatas[$i];
+            $contents .= $this->imageDatas[ $i ];
         }
 
         // Terminator

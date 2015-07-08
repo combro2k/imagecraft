@@ -14,7 +14,7 @@ class GifBuilderPlusTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->extractor = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifExtractor', null);
-        $this->builder   = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilderPlus', null);
+        $this->builder = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilderPlus', null);
     }
 
     /**
@@ -29,7 +29,7 @@ class GifBuilderPlusTest extends \PHPUnit_Framework_TestCase
             ->canvasHeight($extracted->getCanvasHeight())
             ->loop($extracted->getTotalLoops())
         ;
-        for ($i = 0; $i < count($extracted); $i++) {
+        for ($i = 0; $i < count($extracted); ++$i) {
             $this->builder->addFrame();
             $this->builder
                 ->imageWidth($extracted->getImageWidth())

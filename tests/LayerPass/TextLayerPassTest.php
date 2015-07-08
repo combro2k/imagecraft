@@ -13,15 +13,15 @@ class TextLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->pass  = $this->getMock('Imagecraft\\LayerPass\\TextLayerPass', null);
+        $this->pass = $this->getMock('Imagecraft\\LayerPass\\TextLayerPass', null);
         $this->layer = $this->getMock('Imagecraft\\Layer\\TextLayer', null);
     }
 
     public function testProcessFont()
     {
         $this->layer->add(array(
-            'text.font.filename'  => 'foo',
-            'text.font.size'      => 15,
+            'text.font.filename' => 'foo',
+            'text.font.size' => 15,
             'text.font.hex_color' => '#000',
         ));
         $this->pass->processFont($this->layer);
@@ -80,7 +80,7 @@ class TextLayerPassTest extends \PHPUnit_Framework_TestCase
 
         $this->layer->clear();
         $this->layer->add(array(
-            'text.box.paddings'  => array(10, 1),
+            'text.box.paddings' => array(10, 1),
             'text.box.hex_color' => '#000',
         ));
         $this->pass->processBox($this->layer);

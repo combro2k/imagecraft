@@ -2,12 +2,13 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
 use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class BackgroundLayerListener implements EventSubscriberInterface
@@ -27,7 +28,7 @@ class BackgroundLayerListener implements EventSubscriberInterface
      */
     public function initFinalFormat(PhpGdEvent $event)
     {
-        $layer   = $event->getLayers()[0];
+        $layer = $event->getLayers()[0];
         $options = $event->getOptions();
         if ('default' === $options['output_format']) {
             $format = $layer->get('image.format');

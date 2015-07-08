@@ -12,6 +12,7 @@ use TranslatedException\TranslatedException;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageBuilder
@@ -37,6 +38,7 @@ class ImageBuilder
 
     /**
      * @return BackgroundLayer
+     *
      * @api
      */
     public function addBackgroundLayer()
@@ -46,6 +48,7 @@ class ImageBuilder
 
     /**
      * @return ImageLayer
+     *
      * @api
      */
     public function addImageLayer()
@@ -55,6 +58,7 @@ class ImageBuilder
 
     /**
      * @return TextLayer
+     *
      * @api
      */
     public function addTextLayer()
@@ -64,6 +68,7 @@ class ImageBuilder
 
     /**
      * @return Image
+     *
      * @api
      */
     public function save()
@@ -72,7 +77,7 @@ class ImageBuilder
             $pass = new DelegatingOptionPass();
             $this->options = $pass->process($this->options);
             TranslatedException::init($this->options);
-            TranslatedException::addResourceDir(__DIR__ . '/Resources/translations');
+            TranslatedException::addResourceDir(__DIR__.'/Resources/translations');
             $pass = new DelegatingLayerPass();
             $this->layers = $pass->process($this->layers);
             $engine = new DelegatingEngine();
@@ -89,6 +94,7 @@ class ImageBuilder
 
     /**
      * @return AbstractContext
+     *
      * @api
      */
     public function about()

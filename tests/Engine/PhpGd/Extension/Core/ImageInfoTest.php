@@ -16,7 +16,7 @@ class ImageInfoTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', array());
-        $this->info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($this->context));
+        $this->info = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($this->context));
     }
 
     /**

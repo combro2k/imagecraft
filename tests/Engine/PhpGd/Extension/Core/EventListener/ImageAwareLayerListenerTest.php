@@ -3,7 +3,6 @@
 namespace Imagecraft\Engine\PhpGd\Extension\Core\EventListener;
 
 use Imagecraft\Layer\ImageAwareLayerInterface;
-use ImcStream\ImcStream;
 
 /**
  * @covers Imagecraft\Engine\PhpGd\Extension\Core\EventListener\ImageAwareLayerListener
@@ -19,8 +18,8 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
-        $info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($context));
-        $rh      = $this->getMock('Imagecraft\\Engine\\PhpGd\\Helper\\ResourceHelper', null);
+        $info = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($context));
+        $rh = $this->getMock('Imagecraft\\Engine\\PhpGd\\Helper\\ResourceHelper', null);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\ImageAwareLayerListener',
             null,
@@ -41,9 +40,9 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->layer->add(array(
-            'image.http.url'        => 'http://www.example.com',
+            'image.http.url' => 'http://www.example.com',
             'image.http.data_limit' => 500,
-            'image.http.timeout'    => 20,
+            'image.http.timeout' => 20,
         ));
         $this->listener->initImcUri($this->event);
         $this->assertNotEmpty($this->layer->get('image.imc_uri'));
@@ -82,9 +81,9 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
     public function testInitFinalDimensions()
     {
         $this->layer->add(array(
-            'image.width'         => 200,
-            'image.height'        => 200,
-            'image.resize.width'  => 100,
+            'image.width' => 200,
+            'image.height' => 200,
+            'image.resize.width' => 100,
             'image.resize.height' => 100,
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_FILL_CROP,
         ));
@@ -114,9 +113,9 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->layer->add(array(
-            'image.http.url'        => 'http://www.example.com',
+            'image.http.url' => 'http://www.example.com',
             'image.http.data_limit' => 500,
-            'image.http.timeout'    => 20,
+            'image.http.timeout' => 20,
         ));
         $this->listener->initImcUri($this->event);
         $this->listener->termImcUri($this->event);

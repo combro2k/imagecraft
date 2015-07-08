@@ -190,7 +190,7 @@ class ResourceHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClonedGdResource()
     {
-        $resource       = imagecreate(100, 100);
+        $resource = imagecreate(100, 100);
         $clonedResource = $this->rh->getClonedGdResource($resource);
         $this->assertInternalType('resource', $clonedResource);
         $this->assertFalse($resource === $clonedResource);

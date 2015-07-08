@@ -4,6 +4,7 @@ namespace Imagecraft\Layer;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class BackgroundLayer extends AbstractLayer implements BackgroundLayerInterface
@@ -14,9 +15,9 @@ class BackgroundLayer extends AbstractLayer implements BackgroundLayerInterface
     public function http($url, $dataLimit = -1, $timeout = -1)
     {
         $this->add(array(
-            'image.http.url'        => $url,
+            'image.http.url' => $url,
             'image.http.data_limit' => $dataLimit,
-            'image.http.timeout'    => $timeout,
+            'image.http.timeout' => $timeout,
         ));
 
         return $this;
@@ -48,7 +49,7 @@ class BackgroundLayer extends AbstractLayer implements BackgroundLayerInterface
     public function resize($width, $height, $option = ImageAwareLayerInterface::RESIZE_SHRINK)
     {
         $this->add(array(
-            'image.resize.width'  => $width,
+            'image.resize.width' => $width,
             'image.resize.height' => $height,
             'image.resize.option' => $option,
         ));
@@ -58,17 +59,19 @@ class BackgroundLayer extends AbstractLayer implements BackgroundLayerInterface
 
     /**
      * @inheritDoc
+     *
      * @param int $mode one of the IMG_FLIP_ constants
      */
     public function flip($mode)
     {
         $this->add(array('image.flip' => $mode));
-        
-		return $this;
+
+        return $this;
     }
 
     /**
      * @inheritDoc
+     *
      * @param float $angle angle of rotation
      * @param null|array color of uncovered pixels
      */
@@ -78,17 +81,19 @@ class BackgroundLayer extends AbstractLayer implements BackgroundLayerInterface
         if ($bgColor) {
             $this->add(array('image.rotate.bgcolor' => $bgColor));
         }
+
         return $this;
     }
 
-	/**
+    /**
      * @inheritDoc
+     *
      * @param int $opacity level of opacity
      */
     public function opacity($opacity)
     {
         $this->add(array('image.opacity' => $opacity));
-        
-		return $this;
+
+        return $this;
     }
 }

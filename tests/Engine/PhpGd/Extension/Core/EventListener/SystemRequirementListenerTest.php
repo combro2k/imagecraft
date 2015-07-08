@@ -15,7 +15,7 @@ class SystemRequirementListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context  = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', array());
+        $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', array());
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\SystemRequirementListener',
             null,

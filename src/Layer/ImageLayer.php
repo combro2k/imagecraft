@@ -4,6 +4,7 @@ namespace Imagecraft\Layer;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class ImageLayer extends AbstractLayer implements ImageLayerInterface
@@ -14,9 +15,9 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
     public function http($url, $dataLimit = -1, $timeout = -1)
     {
         $this->add(array(
-            'image.http.url'        => $url,
+            'image.http.url' => $url,
             'image.http.data_limit' => $dataLimit,
-            'image.http.timeout'    => $timeout,
+            'image.http.timeout' => $timeout,
         ));
 
         return $this;
@@ -48,7 +49,7 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
     public function resize($width, $height, $option = ImageAwareLayerInterface::RESIZE_SHRINK)
     {
         $this->add(array(
-            'image.resize.width'  => $width,
+            'image.resize.width' => $width,
             'image.resize.height' => $height,
             'image.resize.option' => $option,
         ));
@@ -58,23 +59,26 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
 
     /**
      * @inheritDoc
+     *
      * @param int $mode one of the IMG_FLIP_ constants
      */
     public function flip($mode)
     {
         $this->add(array('image.flip' => $mode));
+
         return $this;
     }
 
     /**
      * @inheritDoc
+     *
      * @param int $opacity level of opacity
      */
     public function opacity($opacity)
     {
         $this->add(array('image.opacity' => $opacity));
-        
-		return $this;
+
+        return $this;
     }
 
     /**
@@ -83,16 +87,17 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
     public function move($x, $y, $gravity = RegularLayerInterface::MOVE_TOP_LEFT)
     {
         $this->add(array(
-            'regular.move.x'       => $x,
-            'regular.move.y'       => $y,
+            'regular.move.x' => $x,
+            'regular.move.y' => $y,
             'regular.move.gravity' => $gravity,
         ));
 
         return $this;
     }
 
-	/**
+    /**
      * @inheritDoc
+     *
      * @param int $angle angle of rotation
      * @param null|array color of uncovered pixels
      */
@@ -102,6 +107,7 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
         if ($bgColor) {
             $this->add(array('image.rotate.bgcolor' => $bgColor));
         }
+
         return $this;
     }
 }

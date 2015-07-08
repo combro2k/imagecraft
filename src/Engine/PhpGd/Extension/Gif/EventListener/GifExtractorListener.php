@@ -2,15 +2,16 @@
 
 namespace Imagecraft\Engine\PhpGd\Extension\Gif\EventListener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Imagecraft\Exception\TranslatedException;
-use Imagecraft\Engine\PhpGd\PhpGdContext;
-use Imagecraft\Engine\PhpGd\PhpGdEvents;
-use Imagecraft\Engine\PhpGd\PhpGdEvent;
 use Imagecraft\Engine\PhpGd\Extension\Gif\GifExtractor;
+use Imagecraft\Engine\PhpGd\PhpGdContext;
+use Imagecraft\Engine\PhpGd\PhpGdEvent;
+use Imagecraft\Engine\PhpGd\PhpGdEvents;
+use Imagecraft\Exception\TranslatedException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class GifExtractorListener implements EventSubscriberInterface
@@ -39,7 +40,7 @@ class GifExtractorListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            PhpGdEvents::PRE_IMAGE    => array('initExtracted', 829),
+            PhpGdEvents::PRE_IMAGE => array('initExtracted', 829),
             PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 879),
         );
     }
@@ -50,7 +51,7 @@ class GifExtractorListener implements EventSubscriberInterface
     public function initExtracted(PhpGdEvent $event)
     {
         $options = $event->getOptions();
-        $layers  = $event->getLayers();
+        $layers = $event->getLayers();
 
         if (
             !$options['gif_animation'] ||

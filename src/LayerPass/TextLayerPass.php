@@ -2,12 +2,12 @@
 
 namespace Imagecraft\LayerPass;
 
-use Imagecraft\Layer\LayerInterface;
-use Imagecraft\Layer\TextLayerInterface;
 use Imagecraft\Exception\BadMethodCallException;
+use Imagecraft\Layer\TextLayerInterface;
 
 /**
  * @author Xianghan Wang <coldume@gmail.com>
+ *
  * @since  1.0.0
  */
 class TextLayerPass extends AbstractLayerPass
@@ -22,7 +22,7 @@ class TextLayerPass extends AbstractLayerPass
                 continue;
             }
             if ('' === $layer->get('text.label')) {
-                unset($layers[$key]);
+                unset($layers[ $key ]);
                 continue;
             }
 
@@ -37,7 +37,8 @@ class TextLayerPass extends AbstractLayerPass
     }
 
     /**
-     * @param  TextLayerInterface $layer
+     * @param TextLayerInterface $layer
+     *
      * @throws BadMethodCallException
      */
     public function processFont(TextLayerInterface $layer)
@@ -105,7 +106,7 @@ class TextLayerPass extends AbstractLayerPass
     {
         if (!$layer->has('text.box.paddings')) {
             $layer->add(array(
-                'text.box.paddings'  => array(0, 0, 0, 0),
+                'text.box.paddings' => array(0, 0, 0, 0),
                 'text.box.hex_color' => null,
             ));
 
@@ -114,11 +115,11 @@ class TextLayerPass extends AbstractLayerPass
 
         $paddings = array_values($layer->get('text.box.paddings'));
         $arr = array();
-        for ($i = 0; $i < 4; $i++) {
-            if (!isset($paddings[$i]) || 0 > $paddings[$i]) {
-                $arr[$i] = 0;
+        for ($i = 0; $i < 4; ++$i) {
+            if (!isset($paddings[ $i ]) || 0 > $paddings[ $i ]) {
+                $arr[ $i ] = 0;
             } else {
-                $arr[$i] = (int) $paddings[$i];
+                $arr[ $i ] = (int) $paddings[ $i ];
             }
         }
         $layer->set('text.box.paddings', $arr);
