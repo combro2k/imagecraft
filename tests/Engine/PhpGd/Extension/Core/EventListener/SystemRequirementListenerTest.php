@@ -15,13 +15,13 @@ class SystemRequirementListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context  = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', []);
+        $this->context  = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', array());
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\SystemRequirementListener',
             null,
-            [$this->context]
+            array($this->context)
         );
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
     }
 
     /**
@@ -50,7 +50,7 @@ class SystemRequirementListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue(['output_format' => 'foo']))
+            ->will($this->returnValue(array('output_format' => 'foo')))
         ;
         $this->listener->verifySavedFormat($this->event);
     }

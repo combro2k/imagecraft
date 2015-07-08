@@ -15,8 +15,8 @@ class ImageInfoTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', []);
-        $this->info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, [$this->context]);
+        $this->context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', array());
+        $this->info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($this->context));
     }
 
     /**
@@ -98,23 +98,23 @@ class ImageInfoTest extends \PHPUnit_Framework_TestCase
 
     public function imageDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../Fixtures/webp_vp8_lossy_truecolor_550x368.webp', PhpGdContext::FORMAT_WEBP, 550,  368],
-            [__DIR__.'/../../../../Fixtures/gif_87a_palette_250x297.gif',           PhpGdContext::FORMAT_GIF,  250,  297],
-            [__DIR__.'/../../../../Fixtures/png_truecolor_alpha_300x395.png',       PhpGdContext::FORMAT_PNG,  300,  395],
-            [__DIR__.'/../../../../Fixtures/png_palette_alpha_3000x1174.png',       PhpGdContext::FORMAT_PNG,  3000, 1174],
-            [__DIR__.'/../../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg',      PhpGdContext::FORMAT_JPEG, 1920, 758],
-            [__DIR__.'/../../../../Fixtures/jpeg_jfjf_grayscale_480x361.jpg',       PhpGdContext::FORMAT_JPEG, 480,  361],
-            [__DIR__.'/../../../../Fixtures/jpeg_exif_truecolor_480x360.jpg',       PhpGdContext::FORMAT_JPEG, 480,  360],
-            [__DIR__.'/../../../../Fixtures/jpeg_jfjf_sos_truecolor_1920x1200.jpg', PhpGdContext::FORMAT_JPEG, 1920, 1200],
-        ];
+        return array(
+            array(__DIR__.'/../../../../Fixtures/webp_vp8_lossy_truecolor_550x368.webp', PhpGdContext::FORMAT_WEBP, 550,  368),
+            array(__DIR__.'/../../../../Fixtures/gif_87a_palette_250x297.gif',           PhpGdContext::FORMAT_GIF,  250,  297),
+            array(__DIR__.'/../../../../Fixtures/png_truecolor_alpha_300x395.png',       PhpGdContext::FORMAT_PNG,  300,  395),
+            array(__DIR__.'/../../../../Fixtures/png_palette_alpha_3000x1174.png',       PhpGdContext::FORMAT_PNG,  3000, 1174),
+            array(__DIR__.'/../../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg',      PhpGdContext::FORMAT_JPEG, 1920, 758),
+            array(__DIR__.'/../../../../Fixtures/jpeg_jfjf_grayscale_480x361.jpg',       PhpGdContext::FORMAT_JPEG, 480,  361),
+            array(__DIR__.'/../../../../Fixtures/jpeg_exif_truecolor_480x360.jpg',       PhpGdContext::FORMAT_JPEG, 480,  360),
+            array(__DIR__.'/../../../../Fixtures/jpeg_jfjf_sos_truecolor_1920x1200.jpg', PhpGdContext::FORMAT_JPEG, 1920, 1200),
+        );
     }
 
     public function invalidWebpDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../Fixtures/webp_vp8l_lossless_truecolor_alpha_800x600.webp'],
-            [__DIR__.'/../../../../Fixtures/webp_vp8x_lossy_truecolor_alpha_421x163.webp'],
-        ];
+        return array(
+            array(__DIR__.'/../../../../Fixtures/webp_vp8l_lossless_truecolor_alpha_800x600.webp'),
+            array(__DIR__.'/../../../../Fixtures/webp_vp8x_lossy_truecolor_alpha_421x163.webp'),
+        );
     }
 }

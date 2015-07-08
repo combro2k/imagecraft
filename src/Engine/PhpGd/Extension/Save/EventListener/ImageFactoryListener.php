@@ -31,9 +31,9 @@ class ImageFactoryListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE => ['createImage', 839],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array('createImage', 839),
+        );
     }
 
     /**

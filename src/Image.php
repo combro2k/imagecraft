@@ -46,7 +46,7 @@ class Image
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @return bool

@@ -16,7 +16,7 @@ class DelegatingOptionPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        $option = $this->pass->process([]);
+        $option = $this->pass->process(array());
         $this->assertInternalType('array', $option);
     }
 }

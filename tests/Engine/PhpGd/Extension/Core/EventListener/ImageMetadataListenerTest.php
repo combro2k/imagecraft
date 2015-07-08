@@ -23,14 +23,14 @@ class ImageMetadataListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\ImageMetadataListener',
             null,
-            [$context]
+            array($context)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\ImageLayer', null);
         $this->image = $this->getMock('Imagecraft\\Image', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->event
             ->method('getImage')
@@ -40,13 +40,13 @@ class ImageMetadataListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testAddImageMetadatas()
     {
-        $this->layer->add([
+        $this->layer->add(array(
             'final.format' => PhpGdContext::FORMAT_JPEG,
             'final.width'  => 100,
             'final.height' => 200,
             'image.width'  => 300,
             'image.height' => 400,
-        ]);
+        ));
         $this->listener->addImageMetadatas($this->event);
         $this->assertInternalType('string', $this->image->getMime());
         $this->assertInternalType('string', $this->image->getExtension());

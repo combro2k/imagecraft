@@ -27,12 +27,12 @@ class RegularLayerPassTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->layer->has('regular.move.gravity'));
 
         $this->layer->clear();
-        $this->layer->add([
+        $this->layer->add(array(
             'regular.move.x'       => 11.1,
             'regular.move.y'       => -10,
             'regular.move.gravity' => RegularLayerInterface::MOVE_TOP_LEFT,
 
-        ]);
+        ));
         $this->pass->processMove($this->layer);
         $this->assertEquals(11, $this->layer->get('regular.move.x'));
         $this->assertEquals(-10, $this->layer->get('regular.move.y'));

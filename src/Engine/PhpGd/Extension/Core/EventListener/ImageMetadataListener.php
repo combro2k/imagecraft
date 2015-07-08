@@ -31,9 +31,9 @@ class ImageMetadataListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::FINISH_IMAGE => ['addImageMetadatas', 899],
-        ];
+        return array(
+            PhpGdEvents::FINISH_IMAGE => array('addImageMetadatas', 899),
+        );
     }
 
     /**
@@ -49,9 +49,9 @@ class ImageMetadataListener implements EventSubscriberInterface
         $image->setExtension($this->context->getImageExtension($format));
         $image->setWidth($layers[0]->get('final.width'));
         $image->setHeight($layers[0]->get('final.height'));
-        $image->addExtras([
+        $image->addExtras(array(
             'original_width'  => $layers[0]->get('image.width'),
             'original_height' => $layers[0]->get('image.height'),
-        ]);
+        ));
     }
 }

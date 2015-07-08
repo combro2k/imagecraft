@@ -21,13 +21,13 @@ class TextLayerListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\TextLayerListener',
             null,
-            [$this->context]
+            array($this->context)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\TextLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
     }
 

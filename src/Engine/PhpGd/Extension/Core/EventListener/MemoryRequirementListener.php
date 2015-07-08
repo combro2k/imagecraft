@@ -23,7 +23,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @param PhpGdContext $context
@@ -38,10 +38,10 @@ class MemoryRequirementListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE    => ['verifyMemoryLimit', 869],
-            PhpGdEvents::FINISH_IMAGE => ['addImageExtras', 889],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE    => array('verifyMemoryLimit', 869),
+            PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 889),
+        );
     }
 
     /**
@@ -71,12 +71,12 @@ class MemoryRequirementListener implements EventSubscriberInterface
                     if ($finalWidth * $finalHeight > $width * $height) {
                         throw new RuntimeException(
                             'output.image.dimensions.exceed.limit.%cp_dimensions%',
-                            ['%cp_dimensions%' => $finalWidth.'x'.$finalHeight]
+                            array('%cp_dimensions%' => $finalWidth.'x'.$finalHeight)
                         );
                     } else {
                         throw new RuntimeException(
                             'image.dimensions.exceed.limit.%cp_dimensions%',
-                            ['%cp_dimensions%' => $width.'x'.$height]
+                            array('%cp_dimensions%' => $width.'x'.$height)
                         );
                     }
                 }

@@ -70,10 +70,10 @@ class ImageAwareLayerPass extends AbstractLayerPass
             $height = (0 >= $height) ? 1 : $height;
             $layer->set('image.resize.height', $height);
 
-            $options = [
+            $options = array(
                 ImageAwareLayerInterface::RESIZE_SHRINK,
                 ImageAwareLayerInterface::RESIZE_FILL_CROP,
-            ];
+            );
             $option = (string) $layer->get('image.resize.option');
             $option = $this->sanitizeEnumeration($option, $options);
             $layer->set('image.resize.option', $option);

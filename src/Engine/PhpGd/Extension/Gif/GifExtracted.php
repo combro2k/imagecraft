@@ -35,32 +35,32 @@ class GifExtracted implements \Countable, \Iterator
     /**
      * @var null|string[]
      */
-    protected $graphicControlExtensions = [];
+    protected $graphicControlExtensions = array();
 
     /**
      * @var string[]
      */
-    protected $imageDescriptors = [];
+    protected $imageDescriptors = array();
 
     /**
      * @var null|string[]
      */
-    protected $localColorTables = [];
+    protected $localColorTables = array();
 
     /**
      * @var string[]
      */
-    protected $imageDatas = [];
+    protected $imageDatas = array();
 
     /**
      * @var (null|int)[]
      */
-    protected $linkedKeys = [];
+    protected $linkedKeys = array();
 
     /**
      * @var int[]
      */
-    protected $linkedDisposalMethods = [];
+    protected $linkedDisposalMethods = array();
 
     /**
      * @var int

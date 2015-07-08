@@ -16,7 +16,7 @@ class MemoryLimitOptionPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        $option = $this->pass->process([]);
+        $option = $this->pass->process(array());
         $this->assertEquals(-10, $option['memory_limit']);
     }
 }

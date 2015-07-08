@@ -109,7 +109,7 @@ class ResourceHelper
      * @return string|false
      * @throws InvalidImageException
      */
-    public function getContentsFromGdResource($format, $resource, array $options = [], $throw = false)
+    public function getContentsFromGdResource($format, $resource, array $options = array(), $throw = false)
     {
         ob_start();
         switch ($format) {
@@ -201,10 +201,10 @@ class ResourceHelper
                 }
         }
 
-        return [
+        return array(
             'dst_x' => $dstX, 'dst_y' => $dstY, 'dst_w' => $dstW, 'dst_h' => $dstH,
             'src_x' => $srcX, 'src_y' => $srcY, 'src_w' => $srcW, 'src_h' => $srcH,
-        ];
+        );
     }
 
     /**
@@ -430,7 +430,7 @@ class ResourceHelper
         $label,
         $lineSpacing,
         $angle,
-        array $blockPaddings = [0, 0, 0, 0],
+        array $blockPaddings = array(0, 0, 0, 0),
         array $blockColor = null
     ) {
         $points = $this->getTextPoints(
@@ -455,10 +455,10 @@ class ResourceHelper
             if (function_exists('imageantialias')) {
                 imageantialias($resource, true);
             }
-            $coordinates = [
+            $coordinates = array(
                 $points['x'][0], $points['y'][0], $points['x'][1], $points['y'][1],
                 $points['x'][2], $points['y'][2], $points['x'][3], $points['y'][3],
-            ];
+            );
             imagefilledpolygon($resource, $coordinates, 4, $blockColor);
         }
         $fontColor = imagecolorallocate($resource, $fontColor[0], $fontColor[1], $fontColor[2]);
@@ -471,7 +471,7 @@ class ResourceHelper
             $fontColor,
             $fontUri,
             $label,
-            ['linespacing' => $lineSpacing]
+            array('linespacing' => $lineSpacing)
         );
 
         return $resource;
@@ -495,7 +495,7 @@ class ResourceHelper
         $angle,
         array $blockPaddings
     ) {
-        $ftbbox = @imageftbbox($fontSize, 0, $fontUri, $label, ['linespacing' => $lineSpacing]);
+        $ftbbox = @imageftbbox($fontSize, 0, $fontUri, $label, array('linespacing' => $lineSpacing));
         if (false === $ftbbox) {
             throw new InvalidFontException('text.adding.error');
         }
@@ -508,7 +508,7 @@ class ResourceHelper
         $h       = $height / 2;
 
         $radius = sqrt(pow($width, 2) + pow($height, 2)) / 2;
-        $points = [];
+        $points = array();
         for ($i = 0; $i < 4; $i++) {
             $a = (0 === $i || 1 === $i) ? $h : -$h;
             $b = (1 === $i || 2 === $i) ? $w  : -$w;

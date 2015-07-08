@@ -46,12 +46,12 @@ class GifExtractorTest extends \PHPUnit_Framework_TestCase
 
     public function imageDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif', true],
-            [__DIR__.'/../../../../Fixtures/gif_87a_palette_250x297.gif', true],
-            [__DIR__.'/../../../../Fixtures/zz_gif_89a_palette_animated_no_graphic_control_550x296.gif', true],
-            [__DIR__.'/../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif', false],
-            [__DIR__.'/../../../../Fixtures/png_palette_alpha_3000x1174.png', false],
-        ];
+        return array(
+            array(__DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif', true),
+            array(__DIR__.'/../../../../Fixtures/gif_87a_palette_250x297.gif', true),
+            array(__DIR__.'/../../../../Fixtures/zz_gif_89a_palette_animated_no_graphic_control_550x296.gif', true),
+            array(__DIR__.'/../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif', false),
+            array(__DIR__.'/../../../../Fixtures/png_palette_alpha_3000x1174.png', false),
+        );
     }
 }

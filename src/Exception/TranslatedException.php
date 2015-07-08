@@ -19,7 +19,7 @@ class TranslatedException extends BaseTranslatedException
      */
     public function __construct(
         $id,
-        array $parameters = [],
+        array $parameters = array(),
         $number = null,
         $code = 0,
         \Exception $previous = null

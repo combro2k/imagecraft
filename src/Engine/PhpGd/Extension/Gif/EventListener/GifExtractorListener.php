@@ -23,7 +23,7 @@ class GifExtractorListener implements EventSubscriberInterface
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @param GifExtractor $extractor
@@ -38,10 +38,10 @@ class GifExtractorListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE    => ['initExtracted', 829],
-            PhpGdEvents::FINISH_IMAGE => ['addImageExtras', 879],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE    => array('initExtracted', 829),
+            PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 879),
+        );
     }
 
     /**

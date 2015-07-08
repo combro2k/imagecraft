@@ -19,16 +19,16 @@ class TextLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessFont()
     {
-        $this->layer->add([
+        $this->layer->add(array(
             'text.font.filename'  => 'foo',
             'text.font.size'      => 15,
             'text.font.hex_color' => '#000',
-        ]);
+        ));
         $this->pass->processFont($this->layer);
         $this->assertEquals('foo', $this->layer->get('text.font.filename'));
         $this->assertEquals(15, $this->layer->get('text.font.size'));
         $this->assertEquals('#000', $this->layer->get('text.font.hex_color'));
-        $this->assertEquals([0, 0, 0], $this->layer->get('text.font.rgb_color'));
+        $this->assertEquals(array(0, 0, 0), $this->layer->get('text.font.rgb_color'));
     }
 
     /**
@@ -75,17 +75,17 @@ class TextLayerPassTest extends \PHPUnit_Framework_TestCase
     public function testProcessBox()
     {
         $this->pass->processBox($this->layer);
-        $this->assertEquals([0, 0, 0, 0], $this->layer->get('text.box.paddings'));
+        $this->assertEquals(array(0, 0, 0, 0), $this->layer->get('text.box.paddings'));
         $this->assertEquals(null, $this->layer->get('text.box.hex_color'));
 
         $this->layer->clear();
-        $this->layer->add([
-            'text.box.paddings'  => [10, 1],
+        $this->layer->add(array(
+            'text.box.paddings'  => array(10, 1),
             'text.box.hex_color' => '#000',
-        ]);
+        ));
         $this->pass->processBox($this->layer);
-        $this->assertEquals([10, 1, 0, 0], $this->layer->get('text.box.paddings'));
+        $this->assertEquals(array(10, 1, 0, 0), $this->layer->get('text.box.paddings'));
         $this->assertEquals('#000', $this->layer->get('text.box.hex_color'));
-        $this->assertEquals([0, 0, 0], $this->layer->get('text.box.rgb_color'));
+        $this->assertEquals(array(0, 0, 0), $this->layer->get('text.box.rgb_color'));
     }
 }

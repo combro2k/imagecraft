@@ -29,11 +29,11 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
         $extractor     = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifExtractor', null);
         $builder       = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilder', null);
         $builderPlus   = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifBuilderPlus', null);
-        $optimizer     = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifOptimizer', null, [$rh]);
+        $optimizer     = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\GifOptimizer', null, array($rh));
         $this->factory = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\ImageFactory',
             null,
-            [$rh, $extractor, $builder, $builderPlus, $optimizer]
+            array($rh, $extractor, $builder, $builderPlus, $optimizer)
         );
     }
 
@@ -51,9 +51,9 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
         $extractor = new GifExtractor();
 
         $outputName1 = 'gif_factory_image_should_be_animated_01.gif';
-        $options1    = [];
+        $options1    = array();
         $layers1[0]  = new BackgroundLayer();
-        $layers1[0]->add([
+        $layers1[0]->add(array(
             'gif.extracted'       => $extractor->extractFromStream(__DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif'),
             'image.width'         => 339,
             'image.height'        => 473,
@@ -62,9 +62,9 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_FILL_CROP,
             'final.width'         => 400,
             'final.height'        => 400,
-        ]);
+        ));
         $layers1[1] = new ImageLayer();
-        $layers1[1]->add([
+        $layers1[1]->add(array(
             'image.imc_uri'        => __DIR__.'/../../../../Fixtures/webp_vp8_lossy_truecolor_550x368.webp',
             'image.width'          => 550,
             'image.height'         => 368,
@@ -77,25 +77,25 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
             'regular.move.x'       => 10,
             'regular.move.y'       => 10,
             'regular.move.gravity' => RegularLayerInterface::MOVE_TOP_LEFT,
-        ]);
+        ));
         $layers1[2] = new TextLayer();
-        $layers1[2]->add([
+        $layers1[2]->add(array(
             'text.font.filename'   => __DIR__.'/../../../../Fixtures/pfa_truecolor_alpha.pfa',
             'text.font.size'       => 12,
-            'text.font.rgb_color'  => [255, 255, 255],
+            'text.font.rgb_color'  => array(255, 255, 255),
             'text.label'           => 'Hello World',
             'text.angle'           => 90,
             'text.lineSpacing'     => 1,
-            'text.box.paddings'    => [0, 0, 0, 0],
+            'text.box.paddings'    => array(0, 0, 0, 0),
             'regular.move.x'       => 0,
             'regular.move.y'       => 0,
             'regular.move.gravity' => RegularLayerInterface::MOVE_CENTER,
-        ]);
+        ));
 
         $outputName2 = 'gif_factory_image_should_be_animated_02.gif';
-        $options2    = [];
+        $options2    = array();
         $layers2[0]  = new BackgroundLayer();
-        $layers2[0]->add([
+        $layers2[0]->add(array(
             'gif.extracted'       => $extractor->extractFromStream(__DIR__.'/../../../../Fixtures/gif_89a_palette_animated_375x225.gif'),
             'final.width'         => 300,
             'final.height'        => 180,
@@ -104,9 +104,9 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
             'image.resize.width'  => 300,
             'image.resize.height' => 180,
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_SHRINK,
-        ]);
+        ));
         $layers2[1] = new ImageLayer();
-        $layers2[1]->add([
+        $layers2[1]->add(array(
             'image.imc_uri'        => __DIR__.'/../../../../Fixtures/jpeg_exif_truecolor_480x360.jpg',
             'image.width'          => 480,
             'image.height'         => 360,
@@ -119,24 +119,24 @@ class ImageFactoryTest extends \PHPUnit_Framework_TestCase
             'regular.move.x'       => 10,
             'regular.move.y'       => 10,
             'regular.move.gravity' => RegularLayerInterface::MOVE_TOP_LEFT,
-        ]);
+        ));
         $layers2[2] = new TextLayer();
-        $layers2[2]->add([
+        $layers2[2]->add(array(
             'text.font.filename'   => __DIR__.'/../../../../Fixtures/pfa_truecolor_alpha.pfa',
             'text.font.size'       => 12,
-            'text.font.rgb_color'  => [255, 255, 255],
+            'text.font.rgb_color'  => array(255, 255, 255),
             'text.label'           => 'Hello World',
             'text.angle'           => 30,
             'text.lineSpacing'     => 1,
-            'text.box.paddings'    => [0, 0, 0, 0],
+            'text.box.paddings'    => array(0, 0, 0, 0),
             'regular.move.x'       => 0,
             'regular.move.y'       => 0,
             'regular.move.gravity' => RegularLayerInterface::MOVE_CENTER,
-        ]);
+        ));
 
-        return [
-            [$layers1, $options1, $outputName1],
-            [$layers2, $options2, $outputName2],
-        ];
+        return array(
+            array($layers1, $options1, $outputName1),
+            array($layers2, $options2, $outputName2),
+        );
     }
 }

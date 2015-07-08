@@ -23,14 +23,14 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\GifExtractorListener',
             null,
-            [$extractor]
+            array($extractor)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->layer->add(['final.format' => PhpGdContext::FORMAT_GIF, 'image.format' => PhpGdContext::FORMAT_GIF]);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->layer->add(array('final.format' => PhpGdContext::FORMAT_GIF, 'image.format' => PhpGdContext::FORMAT_GIF));
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->image = $this->getMock('Imagecraft\\Image', null);
         $this->event
@@ -46,7 +46,7 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->event
             ->method('getOptions')
-            ->will($this->returnValue(['gif_animation' => true]))
+            ->will($this->returnValue(array('gif_animation' => true)))
         ;
         $this->layer->set('image.fp', fopen($filename, 'rb'));
         $this->listener->initExtracted($this->event);
@@ -60,7 +60,7 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->event
             ->method('getOptions')
-            ->will($this->returnValue(['gif_animation' => true]))
+            ->will($this->returnValue(array('gif_animation' => true)))
         ;
         $this->layer->set('image.fp', fopen($filename, 'rb'));
         $this->listener->initExtracted($this->event);
@@ -75,7 +75,7 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->event
             ->method('getOptions')
-            ->will($this->returnValue(['gif_animation' => true]))
+            ->will($this->returnValue(array('gif_animation' => true)))
         ;
         $this->layer->set('image.fp', fopen($filename, 'rb'));
         $this->listener->initExtracted($this->event);
@@ -85,25 +85,25 @@ class GifExtractorListenerTest extends \PHPUnit_Framework_TestCase
 
     public function validAnimatedGifDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif'],
-        ];
+        return array(
+            array(__DIR__.'/../../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif'),
+        );
     }
 
     public function invalidAnimatedGifDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../../Fixtures/gif_87a_palette_250x297.gif'],
-            [__DIR__.'/../../../../../Fixtures/gif_89a_palette_alpha_206x205.gif'],
-            [__DIR__.'/../../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif'],
-            [__DIR__.'/../../../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg'],
-        ];
+        return array(
+            array(__DIR__.'/../../../../../Fixtures/gif_87a_palette_250x297.gif'),
+            array(__DIR__.'/../../../../../Fixtures/gif_89a_palette_alpha_206x205.gif'),
+            array(__DIR__.'/../../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif'),
+            array(__DIR__.'/../../../../../Fixtures/jpeg_jfjf_truecolor_1920x758.jpg'),
+        );
     }
 
     public function corruptedAnimatedGifDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif'],
-        ];
+        return array(
+            array(__DIR__.'/../../../../../Fixtures/zz_gif_89a_palette_animated_corrupted_data_153x120.gif'),
+        );
     }
 }

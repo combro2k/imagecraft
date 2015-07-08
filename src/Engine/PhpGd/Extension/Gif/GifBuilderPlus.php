@@ -28,52 +28,52 @@ class GifBuilderPlus
     /**
      * @var int[]
      */
-    protected $disposes = [];
+    protected $disposes = array();
 
     /**
      * @var (null|int)[]
      */
-    protected $transparentColorIndexes = [];
+    protected $transparentColorIndexes = array();
 
     /**
      * @var int[]
      */
-    protected $delayTimes = [];
+    protected $delayTimes = array();
 
     /**
      * @var int[]
      */
-    protected $imageLefts = [];
+    protected $imageLefts = array();
 
     /**
      * @var int[]
      */
-    protected $imageTops = [];
+    protected $imageTops = array();
 
     /**
      * @var int[]
      */
-    protected $imageWidths = [];
+    protected $imageWidths = array();
 
     /**
      * @var int[]
      */
-    protected $imageHeights = [];
+    protected $imageHeights = array();
 
     /**
      * @var bool[]
      */
-    protected $interlaceFlags = [];
+    protected $interlaceFlags = array();
 
     /**
      * @var string[]
      */
-    protected $colorTables = [];
+    protected $colorTables = array();
 
     /**
      * @var string[]
      */
-    protected $imageDatas = [];
+    protected $imageDatas = array();
 
     /**
      * @var int

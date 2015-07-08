@@ -17,9 +17,9 @@ class BackgroundLayerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE => ['initFinalFormat', 859],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array('initFinalFormat', 859),
+        );
     }
 
     /**

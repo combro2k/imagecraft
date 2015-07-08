@@ -23,13 +23,13 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\MemoryRequirementListener',
             null,
-            [$context]
+            array($context)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->image = $this->getMock('Imagecraft\\Image', null);
         $this->event
@@ -47,13 +47,13 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
             ->method('getOptions')
             ->will($this->returnValue(30 * 1024 * 1024))
         ;
-        $this->layer->add([
+        $this->layer->add(array(
             'image.format' => PhpGdContext::FORMAT_JPEG,
             'image.width'  => 1000000,
             'image.height' => 1000000,
             'final.width'  => 200,
             'final.height' => 200,
-        ]);
+        ));
         $this->listener->verifyMemoryLimit($this->event);
     }
 
@@ -63,13 +63,13 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
             ->method('getOptions')
             ->will($this->returnValue(50 * 1024 * 1024))
         ;
-        $this->layer->add([
+        $this->layer->add(array(
             'image.format' => PhpGdContext::FORMAT_JPEG,
             'image.width'  => 100,
             'image.height' => 100,
             'final.width'  => 100,
             'final.height' => 100,
-        ]);
+        ));
         $this->listener->verifyMemoryLimit($this->event);
         $this->listener->addImageExtras($this->event);
         $this->assertNotEmpty($this->image->getExtras()['memory_approx']);

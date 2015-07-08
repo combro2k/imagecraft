@@ -104,16 +104,16 @@ class TextLayerPass extends AbstractLayerPass
     public function processBox(TextLayerInterface $layer)
     {
         if (!$layer->has('text.box.paddings')) {
-            $layer->add([
-                'text.box.paddings'  => [0, 0, 0, 0],
+            $layer->add(array(
+                'text.box.paddings'  => array(0, 0, 0, 0),
                 'text.box.hex_color' => null,
-            ]);
+            ));
 
             return;
         }
 
         $paddings = array_values($layer->get('text.box.paddings'));
-        $arr = [];
+        $arr = array();
         for ($i = 0; $i < 4; $i++) {
             if (!isset($paddings[$i]) || 0 > $paddings[$i]) {
                 $arr[$i] = 0;

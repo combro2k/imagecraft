@@ -63,7 +63,7 @@ class GifExtractedTest extends \PHPUnit_Framework_TestCase
     public function gifDataProvider()
     {
         $filename1 = __DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif';
-        $specs1    = [
+        $specs1    = array(
             'total_frames'      => 19,
             'canvas_width'      => 339,
             'canvas_height'     => 473,
@@ -80,9 +80,9 @@ class GifExtractedTest extends \PHPUnit_Framework_TestCase
             'image_height'      => 473,
             'local_flag'        => false,
             'interlace_flag'    => false,
-        ];
-        return [
-            [$filename1, $specs1],
-        ];
+        );
+        return array(
+            array($filename1, $specs1),
+        );
     }
 }

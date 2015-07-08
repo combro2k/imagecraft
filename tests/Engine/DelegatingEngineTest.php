@@ -13,20 +13,20 @@ class DelegatingEngine extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->engine = $this->getMock('Imagecraft\\Engine\\DelegatingEngine', ['getRegisteredEngines']);
+        $this->engine = $this->getMock('Imagecraft\\Engine\\DelegatingEngine', array('getRegisteredEngines'));
         $this->engine
             ->method('getRegisteredEngines')
-            ->will($this->returnValue(['foo' => new FooEngine()]))
+            ->will($this->returnValue(array('foo' => new FooEngine())))
         ;
     }
 
     public function testGetImage()
     {
-        $this->assertEquals('foo', $this->engine->getImage([], ['engine' => 'foo']));
+        $this->assertEquals('foo', $this->engine->getImage(array(), array('engine' => 'foo')));
     }
 
     public function testGetContext()
     {
-        $this->assertEquals('bar', $this->engine->getContext(['engine' => 'foo']));
+        $this->assertEquals('bar', $this->engine->getContext(array('engine' => 'foo')));
     }
 }

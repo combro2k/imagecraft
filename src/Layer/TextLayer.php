@@ -13,11 +13,11 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
      */
     public function font($filename, $size = 12, $color = '#FFF')
     {
-        $this->add([
+        $this->add(array(
             'text.font.filename'  => $filename,
             'text.font.size'      => $size,
             'text.font.hex_color' => $color,
-        ]);
+        ));
 
         return $this;
     }
@@ -54,10 +54,10 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
      */
     public function box(array $paddings, $color = null)
     {
-        $this->add([
+        $this->add(array(
             'text.box.paddings'  => $paddings,
             'text.box.hex_color' => $color,
-        ]);
+        ));
 
         return $this;
     }
@@ -68,7 +68,7 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
      */
     public function opacity($opacity)
     {
-        $this->add(['image.opacity' => $opacity]);
+        $this->add(array('image.opacity' => $opacity));
         
 		return $this;
     }
@@ -78,11 +78,11 @@ class TextLayer extends AbstractLayer implements TextLayerInterface
      */
     public function move($x, $y, $gravity = RegularLayerInterface::MOVE_TOP_LEFT)
     {
-        $this->add([
+        $this->add(array(
             'regular.move.x'       => $x,
             'regular.move.y'       => $y,
             'regular.move.gravity' => $gravity,
-        ]);
+        ));
 
         return $this;
     }

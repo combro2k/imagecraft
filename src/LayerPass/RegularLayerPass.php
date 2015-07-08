@@ -33,11 +33,11 @@ class RegularLayerPass extends AbstractLayerPass
     public function processMove(RegularLayerInterface $layer)
     {
         if (!$layer->has('regular.move.x')) {
-            $layer->add([
+            $layer->add(array(
                 'regular.move.x'       => 0,
                 'regular.move.y'       => 0,
                 'regular.move.gravity' => RegularLayerInterface::MOVE_CENTER,
-            ]);
+            ));
 
             return;
         }
@@ -49,7 +49,7 @@ class RegularLayerPass extends AbstractLayerPass
         $layer->set('regular.move.y', $y);
 
         $gravity = (string) $layer->get('regular.move.gravity');
-        $gravities = [
+        $gravities = array(
             RegularLayerInterface::MOVE_TOP_LEFT,
             RegularLayerInterface::MOVE_TOP_CENTER,
             RegularLayerInterface::MOVE_TOP_RIGHT,
@@ -59,7 +59,7 @@ class RegularLayerPass extends AbstractLayerPass
             RegularLayerInterface::MOVE_BOTTOM_LEFT,
             RegularLayerInterface::MOVE_BOTTOM_CENTER,
             RegularLayerInterface::MOVE_BOTTOM_RIGHT,
-        ];
+        );
         $layer->set('regular.move.gravity', $gravity);
     }
 }

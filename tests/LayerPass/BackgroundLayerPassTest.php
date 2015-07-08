@@ -22,6 +22,6 @@ class BackgroundLayerPassTest extends \PHPUnit_Framework_TestCase
      */
     public function testProcessWhenNoBackgroundLayerIsFound()
     {
-        $this->pass->process([]);
+        $this->pass->process(array());
     }
 }

@@ -18,11 +18,11 @@ class DelegatingExtension implements ExtensionInterface
      */
     protected function getRegisteredExtensions()
     {
-        return [
+        return array(
             new CoreExtension(),
             new GifExtension(),
             new SaveExtension(),
-        ];
+        );
     }
 
     /**

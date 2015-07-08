@@ -21,7 +21,7 @@ class ImageAwareLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessResource()
     {
-        $this->layer->add(['image.http.url' => 'www.example.com', 'image.http.data_limit' => -10, 'timeout' => -20]);
+        $this->layer->add(array('image.http.url' => 'www.example.com', 'image.http.data_limit' => -10, 'timeout' => -20));
         $this->pass->processResource($this->layer);
         $this->assertEquals($this->layer->get('image.http.url'), 'http://www.example.com');
         $this->assertEquals($this->layer->get('image.http.data_limit'), -1);
@@ -48,11 +48,11 @@ class ImageAwareLayerPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessResize()
     {
-        $this->layer->add([
+        $this->layer->add(array(
             'image.resize.width'  => -5,
             'image.resize.height' => 0,
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_SHRINK,
-        ]);
+        ));
         $this->pass->processResize($this->layer);
         $this->assertEquals(1, $this->layer->get('image.resize.width'));
         $this->assertEquals(1, $this->layer->get('image.resize.height'));

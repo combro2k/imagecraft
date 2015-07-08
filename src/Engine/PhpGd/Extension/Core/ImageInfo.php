@@ -57,9 +57,9 @@ class ImageInfo
      */
     public function resolveFromFilePointer($fp)
     {
-        $methods = ['resolveWebp', 'resolveGif', 'resolvePng', 'resolveJpeg'];
+        $methods = array('resolveWebp', 'resolveGif', 'resolvePng', 'resolveJpeg');
         foreach ($methods as $method) {
-            if (false !== $info = call_user_func_array([$this, $method], [$fp])) {
+            if (false !== $info = call_user_func_array(array($this, $method), array($fp))) {
                 break;
             }
         }
@@ -82,7 +82,7 @@ class ImageInfo
             $supported = $this->context->getSupportedImageFormatsToString();
             throw new InvalidImageException(
                 'unsupported.image.format.or.file.corrupted.%unsupported%.%supported%',
-                ['%unsupported%' => '"WEBP (VP8'.$matches[1].')"', '%supported%' => $supported]
+                array('%unsupported%' => '"WEBP (VP8'.$matches[1].')"', '%supported%' => $supported)
             );
         }
         $pattern = '/(?s)\\ARIFF.{4}WEBPVP8\\s.{10}(?<width>.{2})(?<height>.{2})/';
@@ -90,11 +90,11 @@ class ImageInfo
             $width  = unpack('v', $matches['width'])[1];
             $height = unpack('v', $matches['height'])[1];
 
-            return [
+            return array(
                 'format' => PhpGdContext::FORMAT_WEBP,
                 'width'  => $width,
                 'height' => $height,
-            ];
+            );
         }
 
         return false;
@@ -112,11 +112,11 @@ class ImageInfo
             $width  = unpack('v', $matches['width'])[1];
             $height = unpack('v', $matches['height'])[1];
 
-            return [
+            return array(
                 'format' => PhpGdContext::FORMAT_GIF,
                 'width'  => $width,
                 'height' => $height,
-            ];
+            );
         }
 
         return false;
@@ -138,11 +138,11 @@ class ImageInfo
             $width  = unpack('N', $matches['width'])[1];
             $height = unpack('N', $matches['height'])[1];
 
-            return [
+            return array(
                 'format' => PhpGdContext::FORMAT_PNG,
                 'width'  => $width,
                 'height' => $height,
-            ];
+            );
         }
 
         return false;
@@ -171,11 +171,11 @@ class ImageInfo
                     $height = unpack('n', fread($fp, 2))[1];
                     $width  = unpack('n', fread($fp, 2))[1];
 
-                    return [
+                    return array(
                         'format' => PhpGdContext::FORMAT_JPEG,
                         'width'  => $width,
                         'height' => $height,
-                    ];
+                    );
                 }
                 if (preg_match('/[\\xd0-\\xd7]|\\x01/', $char)) {
                     continue;
@@ -227,12 +227,12 @@ class ImageInfo
            $unsupported = strtoupper(array_pop($unsupported));
             throw new InvalidImageException(
                 'unsupported.image.format.or.file.corrupted.%unsupported%.%supported%',
-                ['%unsupported%' => '"'.$unsupported.'"', '%supported%' => $supported]
+                array('%unsupported%' => '"'.$unsupported.'"', '%supported%' => $supported)
             );
         } else {
             throw new InvalidImageException(
                 'unknown.image.format.or.file.corrupted.%supported%',
-                ['%supported%' => $supported]
+                array('%supported%' => $supported)
             );
         }
     }

@@ -23,13 +23,13 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\\PhpGd\\Extension\\Gif\\EventListener\\MemoryRequirementListener',
             null,
-            [$this->context]
+            array($this->context)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\BackgroundLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
         $this->image = $this->getMock('Imagecraft\\Image', null);
         $this->event
@@ -43,15 +43,15 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue(['memory_limit' => '120']))
+            ->will($this->returnValue(array('memory_limit' => '120')))
         ;
-        $this->layer->add([
-            'gif.extracted' => [0, 0, 0, 0],
+        $this->layer->add(array(
+            'gif.extracted' => array(0, 0, 0, 0),
             'image.width'   => 100,
             'image.height'  => 100,
             'final.width'   => 10,
             'final.height'  => 10,
-        ]);
+        ));
         $this->listener->verifyMemoryLimit($this->event);
         $this->listener->addImageExtras($this->event);
         $this->assertArrayHasKey('memory_approx', $this->image->getExtras());
@@ -62,15 +62,15 @@ class MemoryRequirementListenerTest extends \PHPUnit_Framework_TestCase
         $this->event
             ->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue(['memory_limit' => '120']))
+            ->will($this->returnValue(array('memory_limit' => '120')))
         ;
-        $this->layer->add([
-            'gif.extracted' => [0, 0, 0, 0],
+        $this->layer->add(array(
+            'gif.extracted' => array(0, 0, 0, 0),
             'image.width'   => 10000000000000000000000,
             'image.height'  => 10000000000000000000000,
             'final.width'   => 10,
             'final.height'  => 10,
-        ]);
+        ));
         $this->listener->verifyMemoryLimit($this->event);
         $this->listener->addImageExtras($this->event);
         $this->assertArrayHasKey('gif_error', $this->image->getExtras());

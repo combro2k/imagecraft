@@ -26,7 +26,7 @@ class DelegatingOptionPass implements OptionPassInterface
      */
     protected function getRegisteredOptionPasses()
     {
-        return [
+        return array(
             new CacheDirOptionPass(),
             new DebugOptionPass(),
             new EngineOptionPass(),
@@ -36,6 +36,6 @@ class DelegatingOptionPass implements OptionPassInterface
             new MemoryLimitOptionPass(),
             new OutputFormatOptionPass(),
             new PngCompressionOptionPass(),
-        ];
+        );
     }
 }

@@ -52,8 +52,8 @@ class GifBuilderPlusTest extends \PHPUnit_Framework_TestCase
 
     public function gifDataProvider()
     {
-        return [
-            [__DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif', 'gif_builder_plus_image_should_be_animated_01.gif'],
-        ];
+        return array(
+            array(__DIR__.'/../../../../Fixtures/gif_89a_palette_alpha_animated_339x473.gif', 'gif_builder_plus_image_should_be_animated_01.gif'),
+        );
     }
 }

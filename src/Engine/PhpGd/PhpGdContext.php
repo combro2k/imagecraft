@@ -50,12 +50,12 @@ class PhpGdContext extends AbstractContext
      */
     public function getImageMime($format)
     {
-        $mimes = [
+        $mimes = array(
             static::FORMAT_WEBP => 'image/webp',
             static::FORMAT_PNG  => 'image/png',
             static::FORMAT_JPEG => 'image/jpeg',
             static::FORMAT_GIF  => 'image/gif',
-        ];
+        );
 
         return $mimes[$format];
     }
@@ -66,12 +66,12 @@ class PhpGdContext extends AbstractContext
      */
     public function getImageExtension($format)
     {
-        $extensions = [
+        $extensions = array(
             static::FORMAT_WEBP => 'webp',
             static::FORMAT_PNG  => 'png',
             static::FORMAT_JPEG => 'jpg',
             static::FORMAT_GIF  => 'gif',
-        ];
+        );
 
         return $extensions[$format];
     }
@@ -97,12 +97,12 @@ class PhpGdContext extends AbstractContext
      */
     public function getSupportedImageFormatsToString()
     {
-        $formats = [
-            [static::FORMAT_WEBP, 'WEBP (VP8)'],
-            [static::FORMAT_PNG,  'PNG'],
-            [static::FORMAT_JPEG, 'JPEG'],
-            [static::FORMAT_GIF,  'GIF'],
-        ];
+        $formats = array(
+            array(static::FORMAT_WEBP, 'WEBP (VP8)'),
+            array(static::FORMAT_PNG,  'PNG'),
+            array(static::FORMAT_JPEG, 'JPEG'),
+            array(static::FORMAT_GIF,  'GIF'),
+        );
         for ($i = 0, $str = ''; $i < count($formats); $i++) {
             if ($this->isImageFormatSupported($formats[$i][0])) {
                 $str .= (0 == $i) ? '"' : ', "';

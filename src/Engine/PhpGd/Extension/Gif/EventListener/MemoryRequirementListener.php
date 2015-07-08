@@ -22,7 +22,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @param PhpGdContext $context
@@ -37,10 +37,10 @@ class MemoryRequirementListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE    => ['verifyMemoryLimit', 819],
-            PhpGdEvents::FINISH_IMAGE => ['addImageExtras', 199],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE    => array('verifyMemoryLimit', 819),
+            PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 199),
+        );
     }
 
     /**
@@ -68,7 +68,7 @@ class MemoryRequirementListener implements EventSubscriberInterface
         if (1000000 < $finalPixels || 57000000 < $totalPixels || $peak > $limit) {
             $e = new TranslatedException(
                 'gif.animation.may.lost.as.too.many.frames.or.dimensions.too.large.%total_frames%.%dimensions%',
-                ['%total_frames%' => $totalFrames, '%dimensions%' => $width.'x'.$height]
+                array('%total_frames%' => $totalFrames, '%dimensions%' => $width.'x'.$height)
             );
             $this->extras['gif_error'] = $e->getMessage();
             $layers[0]->remove('gif.extracted');

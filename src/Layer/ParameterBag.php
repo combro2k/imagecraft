@@ -11,7 +11,7 @@ class ParameterBag implements ParameterBagInterface
     /**
      * @inheritDoc
      */
-    protected $parameters = [];
+    protected $parameters = array();
 
     /**
      * @inheritDoc
@@ -57,6 +57,6 @@ class ParameterBag implements ParameterBagInterface
 
     public function clear()
     {
-        $this->parameters = [];
+        $this->parameters = array();
     }
 }

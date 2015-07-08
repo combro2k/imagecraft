@@ -15,9 +15,9 @@ class DelegatingEngine implements EngineInterface
      */
     protected function getRegisteredEngines()
     {
-        return [
+        return array(
             'php_gd' => new PhpGdEngine(),
-        ];
+        );
     }
 
     /**

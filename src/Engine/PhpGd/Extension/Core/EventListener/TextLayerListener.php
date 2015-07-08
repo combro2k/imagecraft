@@ -33,9 +33,9 @@ class TextLayerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE => ['verifyFreeType', 849],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array('verifyFreeType', 849),
+        );
     }
 
     /**

@@ -16,13 +16,13 @@ class JpegQualityOptionPassTest extends \PHPUnit_Framework_TestCase
 
     public function testProcess()
     {
-        $option = $this->pass->process([]);
+        $option = $this->pass->process(array());
         $this->assertEquals(100, $option['jpeg_quality']);
 
-        $option = $this->pass->process(['jpeg_quality' => 200]);
+        $option = $this->pass->process(array('jpeg_quality' => 200));
         $this->assertEquals(100, $option['jpeg_quality']);
 
-        $option = $this->pass->process(['jpeg_quality' => -100]);
+        $option = $this->pass->process(array('jpeg_quality' => -100));
         $this->assertEquals(100, $option['jpeg_quality']);
     }
 }

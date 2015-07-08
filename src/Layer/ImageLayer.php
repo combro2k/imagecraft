@@ -13,11 +13,11 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function http($url, $dataLimit = -1, $timeout = -1)
     {
-        $this->add([
+        $this->add(array(
             'image.http.url'        => $url,
             'image.http.data_limit' => $dataLimit,
             'image.http.timeout'    => $timeout,
-        ]);
+        ));
 
         return $this;
     }
@@ -47,11 +47,11 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function resize($width, $height, $option = ImageAwareLayerInterface::RESIZE_SHRINK)
     {
-        $this->add([
+        $this->add(array(
             'image.resize.width'  => $width,
             'image.resize.height' => $height,
             'image.resize.option' => $option,
-        ]);
+        ));
 
         return $this;
     }
@@ -62,7 +62,7 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function flip($mode)
     {
-        $this->add(['image.flip' => $mode]);
+        $this->add(array('image.flip' => $mode));
         return $this;
     }
 
@@ -72,7 +72,7 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function opacity($opacity)
     {
-        $this->add(['image.opacity' => $opacity]);
+        $this->add(array('image.opacity' => $opacity));
         
 		return $this;
     }
@@ -82,11 +82,11 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function move($x, $y, $gravity = RegularLayerInterface::MOVE_TOP_LEFT)
     {
-        $this->add([
+        $this->add(array(
             'regular.move.x'       => $x,
             'regular.move.y'       => $y,
             'regular.move.gravity' => $gravity,
-        ]);
+        ));
 
         return $this;
     }
@@ -98,9 +98,9 @@ class ImageLayer extends AbstractLayer implements ImageLayerInterface
      */
     public function rotate($angle, $bgColor = null)
     {
-        $this->add(['image.rotate.angle' => $angle]);
+        $this->add(array('image.rotate.angle' => $angle));
         if ($bgColor) {
-            $this->add(['image.rotate.bgcolor' => $bgColor]);
+            $this->add(array('image.rotate.bgcolor' => $bgColor));
         }
         return $this;
     }

@@ -19,18 +19,18 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $context = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdContext', null);
-        $info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, [$context]);
+        $info    = $this->getMock('Imagecraft\\Engine\\PhpGd\\Extension\\Core\\ImageInfo', null, array($context));
         $rh      = $this->getMock('Imagecraft\\Engine\\PhpGd\\Helper\\ResourceHelper', null);
         $this->listener = $this->getMock(
             'Imagecraft\\Engine\PhpGd\\Extension\\Core\\EventListener\\ImageAwareLayerListener',
             null,
-            [$info, $rh]
+            array($info, $rh)
         );
         $this->layer = $this->getMock('Imagecraft\\Layer\\ImageLayer', null);
-        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', [], [], '', false);
+        $this->event = $this->getMock('Imagecraft\\Engine\\PhpGd\\PhpGdEvent', array(), array(), '', false);
         $this->event
             ->method('getLayers')
-            ->will($this->returnValue([$this->layer]))
+            ->will($this->returnValue(array($this->layer)))
         ;
     }
 
@@ -40,16 +40,16 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No internet connection or allow_url_fopen is not enabled.');
         }
 
-        $this->layer->add([
+        $this->layer->add(array(
             'image.http.url'        => 'http://www.example.com',
             'image.http.data_limit' => 500,
             'image.http.timeout'    => 20,
-        ]);
+        ));
         $this->listener->initImcUri($this->event);
         $this->assertNotEmpty($this->layer->get('image.imc_uri'));
 
         $this->layer->clear();
-        $this->layer->add(['image.filename' => __FILE__]);
+        $this->layer->add(array('image.filename' => __FILE__));
         $this->listener->initImcUri($this->event);
         $this->assertNotEmpty($this->layer->get('image.imc_uri'));
     }
@@ -60,12 +60,12 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No internet connection or allow_url_fopen is not enabled.');
         }
 
-        $this->layer->add(['image.imc_uri' => 'http://www.example.com']);
+        $this->layer->add(array('image.imc_uri' => 'http://www.example.com'));
         $this->listener->initFilePointer($this->event);
         $this->assertInternalType('resource', $this->layer->get('image.fp'));
 
         $this->layer->clear();
-        $this->layer->add(['image.contents' => file_get_contents(__FILE__)]);
+        $this->layer->add(array('image.contents' => file_get_contents(__FILE__)));
         $this->listener->initFilePointer($this->event);
         $this->assertInternalType('resource', $this->layer->get('image.fp'));
     }
@@ -81,13 +81,13 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testInitFinalDimensions()
     {
-        $this->layer->add([
+        $this->layer->add(array(
             'image.width'         => 200,
             'image.height'        => 200,
             'image.resize.width'  => 100,
             'image.resize.height' => 100,
             'image.resize.option' => ImageAwareLayerInterface::RESIZE_FILL_CROP,
-        ]);
+        ));
         $this->listener->initFinalDimensions($this->event);
         $this->assertInternalType('integer', $this->layer->get('final.width'));
         $this->assertInternalType('integer', $this->layer->get('final.height'));
@@ -98,7 +98,7 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTermFilePointer()
     {
-        $this->layer->add(['image.contents' => file_get_contents(__FILE__)]);
+        $this->layer->add(array('image.contents' => file_get_contents(__FILE__)));
         $this->listener->initFilePointer($this->event);
         $this->listener->termFilePointer($this->event);
         $this->assertFalse($this->layer->has('image.fp'));
@@ -113,11 +113,11 @@ class ImageAwareLayerListenerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No internet connection or allow_url_fopen is not enabled.');
         }
 
-        $this->layer->add([
+        $this->layer->add(array(
             'image.http.url'        => 'http://www.example.com',
             'image.http.data_limit' => 500,
             'image.http.timeout'    => 20,
-        ]);
+        ));
         $this->listener->initImcUri($this->event);
         $this->listener->termImcUri($this->event);
         $this->assertFalse($this->layer->has('image.imc_uri'));

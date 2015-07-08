@@ -40,19 +40,19 @@ class ImageAwareLayerListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE => [
-                ['initImcUri', 909],
-                ['initFilePointer', 899],
-                ['initImageInfo', 889],
-                ['initFinalDimensions', 879],
-                ['termFilePointer', 99],
-            ],
-            PhpGdEvents::FINISH_IMAGE => [
-                ['termFilePointer', 99],
-                ['termImcUri', 89],
-            ]
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array(
+                array('initImcUri', 909),
+                array('initFilePointer', 899),
+                array('initImageInfo', 889),
+                array('initFinalDimensions', 879),
+                array('termFilePointer', 99),
+            ),
+            PhpGdEvents::FINISH_IMAGE => array(
+                array('termFilePointer', 99),
+                array('termImcUri', 89),
+            )
+        );
     }
 
     /**
@@ -68,18 +68,18 @@ class ImageAwareLayerListener implements EventSubscriberInterface
             }
             $arr = false;
             if ($layer->has('image.http.url')) {
-                $arr = [
+                $arr = array(
                     'uri'        => $layer->get('image.http.url'),
                     'data_limit' => $layer->get('image.http.data_limit'),
                     'timeout'    => $layer->get('image.http.timeout'),
                     'seek'       => true,
                     'global'     => true,
-                ];
+                );
             } elseif ($layer->has('image.filename')) {
-                $arr = [
+                $arr = array(
                     'uri'  => $layer->get('image.filename'),
                     'seek' => true
-                ];
+                );
             }
             if ($arr) {
                 $uri = 'imc://'.serialize($arr);
@@ -119,11 +119,11 @@ class ImageAwareLayerListener implements EventSubscriberInterface
                 continue;
             }
             $info = $this->info->resolveFromFilePointer($layer->get('image.fp'));
-            $layer->add([
+            $layer->add(array(
                 'image.width'  => $info['width'],
                 'image.height' => $info['height'],
                 'image.format' => $info['format'],
-            ]);
+            ));
         }
     }
 
@@ -152,7 +152,7 @@ class ImageAwareLayerListener implements EventSubscriberInterface
                     $height = $args['dst_h'];
                 }
             }
-            $layer->add(['final.width' => $width, 'final.height' => $height]);
+            $layer->add(array('final.width' => $width, 'final.height' => $height));
         }
     }
 

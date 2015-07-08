@@ -20,7 +20,7 @@ abstract class AbstractLayerPass implements LayerPassInterface
         if (!preg_match('/\\A#?([[:xdigit:]]{3}|[[:xdigit:]]{6})\\Z/', $color, $matches)) {
             throw new InvalidArgumentException(
                 'invalid.hex.color.%cp_invalid%.%example%',
-                ['%cp_invalid%' => '"'.$color.'"', '%example%' => '"#CCC", "#F9F9F9"']
+                array('%cp_invalid%' => '"'.$color.'"', '%example%' => '"#CCC", "#F9F9F9"')
             );
         }
 
@@ -35,7 +35,7 @@ abstract class AbstractLayerPass implements LayerPassInterface
             $blue  = hexdec(substr($hex, 4, 2));
         }
 
-        return ['hex' => '#'.$hex, 'rgb' => [$red, $green, $blue]];
+        return array('hex' => '#'.$hex, 'rgb' => array($red, $green, $blue));
     }
 
     /**
@@ -49,10 +49,10 @@ abstract class AbstractLayerPass implements LayerPassInterface
         if (!in_array($element, $array)) {
             throw new InvalidArgumentException(
                 'unexpected.argument.%cp_unexpected%.%expected%',
-                [
+                array(
                     '%cp_unexpected%' => '"'.$element.'"',
                     '%expected%'      => implode(', ', preg_replace('/.+/', '"$0"', $array)),
-                ]
+                )
             );
         }
 

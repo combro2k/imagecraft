@@ -33,12 +33,12 @@ class SystemRequirementListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::PRE_IMAGE => [
-                ['verifyEngine', 999],
-                ['verifySavedFormat', 989],
-            ],
-        ];
+        return array(
+            PhpGdEvents::PRE_IMAGE => array(
+                array('verifyEngine', 999),
+                array('verifySavedFormat', 989),
+            ),
+        );
     }
 
     /**
@@ -61,7 +61,7 @@ class SystemRequirementListener implements EventSubscriberInterface
         if ('default' !== $format && !$this->context->isImageFormatSupported($format)) {
             throw new InvalidArgumentException(
                 'output.image.format.not.supported.%cp_unsupported%',
-                ['%cp_unsupported%' => '"'.$format.'"']
+                array('%cp_unsupported%' => '"'.$format.'"')
             );
         }
     }

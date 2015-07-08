@@ -26,12 +26,12 @@ class DelegatingLayerPass implements LayerPassInterface
      */
     protected function getRegisteredPasses()
     {
-        return [
+        return array(
             new BackgroundLayerPass(),
             new RegularLayerPass(),
             new ImageAwareLayerPass(),
             new TextLayerPass(),
-        ];
+        );
     }
 }
 

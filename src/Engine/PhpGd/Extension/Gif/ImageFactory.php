@@ -88,7 +88,7 @@ class ImageFactory
 
         $image = new Image();
         $image->setContents($contents);
-        $image->addExtras(['total_frames' => $frames]);
+        $image->addExtras(array('total_frames' => $frames));
 
         return $image;
     }
@@ -424,7 +424,7 @@ class ImageFactory
      */
     protected function getGifContentsFromGdResource($resource)
     {
-        return $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_GIF, $resource, [], true);
+        return $this->rh->getContentsFromGdResource(PhpGdContext::FORMAT_GIF, $resource, array(), true);
     }
 
     /**

@@ -22,7 +22,7 @@ class ImageFactoryListener implements EventSubscriberInterface
     /**
      * @var mixed[]
      */
-    protected $extras = [];
+    protected $extras = array();
 
     /**
      * @param ImageFactory $factory
@@ -37,10 +37,10 @@ class ImageFactoryListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            PhpGdEvents::IMAGE        => ['createImage', 199],
-            PhpGdEvents::FINISH_IMAGE => ['addImageExtras', 869],
-        ];
+        return array(
+            PhpGdEvents::IMAGE        => array('createImage', 199),
+            PhpGdEvents::FINISH_IMAGE => array('addImageExtras', 869),
+        );
     }
 
     /**
