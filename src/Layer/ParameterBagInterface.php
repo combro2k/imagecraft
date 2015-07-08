@@ -17,6 +17,8 @@ interface ParameterBagInterface
 
     /**
      * @param mixed[] $parameters
+     *
+     * @return $this
      */
     public function add(array $parameters);
 
@@ -36,8 +38,13 @@ interface ParameterBagInterface
 
     /**
      * @param string $name
+     *
+     *  @return $this
      */
     public function remove($name);
 
+    /**
+     *  @return $this
+     */
     public function clear();
 }

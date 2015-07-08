@@ -20,6 +20,8 @@ class ParameterBag implements ParameterBagInterface
     public function set($name, $value)
     {
         $this->parameters[ $name ] = $value;
+
+        return $this;
     }
 
     /**
@@ -28,6 +30,8 @@ class ParameterBag implements ParameterBagInterface
     public function add(array $parameters)
     {
         $this->parameters = array_replace($this->parameters, $parameters);
+
+        return $this;
     }
 
     /**
@@ -54,10 +58,17 @@ class ParameterBag implements ParameterBagInterface
         if ($this->has($name)) {
             unset($this->parameters[ $name ]);
         }
+
+        return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function clear()
     {
         $this->parameters = array();
+
+        return $this;
     }
 }
